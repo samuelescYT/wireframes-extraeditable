@@ -1,0 +1,138 @@
+
+<style>
+* { box-sizing: border-box; margin: 0; padding: 0; }
+body { font-family: var(--font-sans); }
+.shell { display: flex; height: 520px; border: 0.5px solid var(--color-border-tertiary); border-radius: var(--border-radius-lg); overflow: hidden; background: var(--color-background-tertiary); }
+.sidebar { width: 52px; background: var(--color-background-primary); border-right: 0.5px solid var(--color-border-tertiary); display: flex; flex-direction: column; align-items: center; padding: 12px 0; gap: 6px; }
+.nav-icon { width: 36px; height: 36px; border-radius: var(--border-radius-md); display: flex; align-items: center; justify-content: center; cursor: pointer; color: var(--color-text-secondary); font-size: 15px; transition: background .15s; }
+.nav-icon:hover, .nav-icon.active { background: var(--color-background-secondary); color: var(--color-text-primary); }
+.nav-icon.active { background: var(--color-background-info); color: var(--color-text-info); }
+.nav-sep { width: 24px; height: 0.5px; background: var(--color-border-tertiary); margin: 6px 0; }
+.main { flex: 1; display: flex; flex-direction: column; overflow: hidden; }
+.topbar { height: 44px; background: var(--color-background-primary); border-bottom: 0.5px solid var(--color-border-tertiary); display: flex; align-items: center; padding: 0 16px; gap: 10px; }
+.topbar-label { font-size: 13px; font-weight: 500; color: var(--color-text-primary); }
+.topbar-badge { font-size: 11px; padding: 2px 8px; border-radius: 99px; background: var(--color-background-secondary); color: var(--color-text-secondary); border: 0.5px solid var(--color-border-tertiary); }
+.topbar-right { margin-left: auto; display: flex; align-items: center; gap: 8px; }
+.report-btn { font-size: 11px; padding: 4px 10px; border-radius: var(--border-radius-md); background: var(--color-background-danger); color: var(--color-text-danger); border: 0.5px solid var(--color-border-danger); cursor: pointer; font-weight: 500; }
+.avatar { width: 26px; height: 26px; border-radius: 50%; background: var(--color-background-info); display: flex; align-items: center; justify-content: center; font-size: 10px; font-weight: 500; color: var(--color-text-info); }
+.content { flex: 1; overflow-y: auto; padding: 16px; display: flex; flex-direction: column; gap: 14px; }
+.section-label { font-size: 11px; font-weight: 500; color: var(--color-text-secondary); text-transform: uppercase; letter-spacing: .06em; margin-bottom: 6px; }
+.cards-row { display: grid; grid-template-columns: repeat(3, 1fr); gap: 10px; }
+.card { background: var(--color-background-primary); border: 0.5px solid var(--color-border-tertiary); border-radius: var(--border-radius-lg); padding: 14px; cursor: pointer; transition: border-color .15s; }
+.card:hover { border-color: var(--color-border-secondary); }
+.card-icon { font-size: 18px; margin-bottom: 8px; }
+.card-title { font-size: 13px; font-weight: 500; color: var(--color-text-primary); margin-bottom: 3px; }
+.card-sub { font-size: 12px; color: var(--color-text-secondary); }
+.card-accent { border-left: 2px solid; }
+.card-accent.blue { border-color: #378ADD; }
+.card-accent.teal { border-color: #1D9E75; }
+.card-accent.amber { border-color: #BA7517; }
+.quick-access { background: var(--color-background-primary); border: 0.5px solid var(--color-border-tertiary); border-radius: var(--border-radius-lg); padding: 14px; cursor: pointer; display: flex; align-items: center; gap: 12px; transition: border-color .15s; }
+.quick-access:hover { border-color: var(--color-border-secondary); }
+.qa-icon { width: 36px; height: 36px; border-radius: var(--border-radius-md); background: var(--color-background-info); display: flex; align-items: center; justify-content: center; font-size: 16px; flex-shrink: 0; }
+.qa-info { flex: 1; }
+.qa-title { font-size: 13px; font-weight: 500; color: var(--color-text-primary); }
+.qa-sub { font-size: 12px; color: var(--color-text-secondary); }
+.qa-arrow { font-size: 14px; color: var(--color-text-tertiary); }
+.progress-row { display: flex; align-items: center; gap: 8px; margin-top: 4px; }
+.progress-bar { flex: 1; height: 4px; background: var(--color-background-secondary); border-radius: 2px; overflow: hidden; }
+.progress-fill { height: 100%; border-radius: 2px; }
+.fill-teal { background: #1D9E75; }
+.fill-amber { background: #BA7517; }
+.progress-pct { font-size: 11px; color: var(--color-text-secondary); min-width: 28px; text-align: right; }
+.courses-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; }
+.click-hint { font-size: 10px; color: var(--color-text-tertiary); margin-top: 2px; }
+</style>
+<div class="shell">
+  <nav class="sidebar" title="Navegación principal">
+    <div class="nav-icon active" title="Inicio">⌂</div>
+    <div class="nav-sep"></div>
+    <div class="nav-icon" title="Proyectos / Editor">◈</div>
+    <div class="nav-icon" title="Aprendizaje">▦</div>
+    <div class="nav-sep"></div>
+    <div class="nav-icon" title="Panel profesor">⊞</div>
+    <div style="flex:1"></div>
+    <div class="nav-icon" title="Ajustes">⚙</div>
+  </nav>
+  <div class="main">
+    <div class="topbar">
+      <span class="topbar-label">Inicio</span>
+      <span class="topbar-badge">Estudiante</span>
+      <div class="topbar-right">
+        <button class="report-btn" onclick="alert('Flujo: Reportar error → descripción → enviar (máx 4 clics)')">⚑ Reportar error</button>
+        <div class="avatar">SC</div>
+      </div>
+    </div>
+    <div class="content">
+      <div>
+        <div class="section-label">Acceso rápido</div>
+        <div style="display:flex;flex-direction:column;gap:8px">
+          <div class="quick-access" onclick="alert('→ Editor: 1 clic desde inicio')">
+            <div class="qa-icon">✦</div>
+            <div class="qa-info">
+              <div class="qa-title">Editor de código</div>
+              <div class="qa-sub">Proyecto-fibonacci · Python</div>
+              <div class="click-hint">1 clic desde aquí</div>
+            </div>
+            <div class="qa-arrow">›</div>
+          </div>
+          <div class="quick-access" onclick="alert('→ Aprendizaje: 1 clic desde inicio')">
+            <div class="qa-icon" style="background:var(--color-background-success);">▦</div>
+            <div class="qa-info">
+              <div class="qa-title">Continuar aprendizaje</div>
+              <div class="qa-sub">Fundamentos Python · Módulo 3</div>
+              <div class="progress-row">
+                <div class="progress-bar"><div class="progress-fill fill-teal" style="width:62%"></div></div>
+                <span class="progress-pct">62%</span>
+              </div>
+            </div>
+            <div class="qa-arrow">›</div>
+          </div>
+        </div>
+      </div>
+      <div>
+        <div class="section-label">Mis cursos</div>
+        <div class="courses-grid">
+          <div class="card card-accent blue" onclick="alert('→ Curso: 2 clics desde inicio')">
+            <div class="card-icon">🐍</div>
+            <div class="card-title">Fundamentos Python</div>
+            <div class="progress-row">
+              <div class="progress-bar"><div class="progress-fill fill-teal" style="width:62%"></div></div>
+              <span class="progress-pct">62%</span>
+            </div>
+            <div class="card-sub" style="margin-top:6px">Módulo 3 de 5</div>
+          </div>
+          <div class="card card-accent teal" onclick="alert('→ Curso: 2 clics desde inicio')">
+            <div class="card-icon">🔣</div>
+            <div class="card-title">Estructuras de datos</div>
+            <div class="progress-row">
+              <div class="progress-bar"><div class="progress-fill fill-amber" style="width:20%"></div></div>
+              <span class="progress-pct">20%</span>
+            </div>
+            <div class="card-sub" style="margin-top:6px">Módulo 1 de 4</div>
+          </div>
+        </div>
+      </div>
+      <div>
+        <div class="section-label">Explorar</div>
+        <div class="cards-row">
+          <div class="card" onclick="alert('→ Catálogo de cursos')">
+            <div class="card-icon">📚</div>
+            <div class="card-title">Todos los cursos</div>
+            <div class="card-sub">Explorar catálogo</div>
+          </div>
+          <div class="card" onclick="alert('→ Mis proyectos')">
+            <div class="card-icon">◈</div>
+            <div class="card-title">Mis proyectos</div>
+            <div class="card-sub">3 proyectos activos</div>
+          </div>
+          <div class="card" onclick="alert('→ Historial de ejercicios')">
+            <div class="card-icon">⊡</div>
+            <div class="card-title">Historial</div>
+            <div class="card-sub">Ejercicios y talleres</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

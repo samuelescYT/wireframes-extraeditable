@@ -1,0 +1,151 @@
+
+<style>
+* { box-sizing: border-box; margin: 0; padding: 0; }
+.shell { display: flex; height: 540px; border: 0.5px solid var(--color-border-tertiary); border-radius: var(--border-radius-lg); overflow: hidden; font-family: var(--font-sans); background: var(--color-background-tertiary); }
+.sidebar { width: 52px; background: var(--color-background-primary); border-right: 0.5px solid var(--color-border-tertiary); display: flex; flex-direction: column; align-items: center; padding: 12px 0; gap: 6px; }
+.nav-icon { width: 36px; height: 36px; border-radius: var(--border-radius-md); display: flex; align-items: center; justify-content: center; cursor: pointer; color: var(--color-text-secondary); font-size: 15px; }
+.nav-icon.active { background: var(--color-background-info); color: var(--color-text-info); }
+.nav-sep { width: 24px; height: 0.5px; background: var(--color-border-tertiary); margin: 6px 0; }
+.editor-wrap { flex: 1; display: flex; flex-direction: column; }
+.editor-topbar { height: 44px; background: var(--color-background-primary); border-bottom: 0.5px solid var(--color-border-tertiary); display: flex; align-items: center; padding: 0 12px; gap: 8px; }
+.tab { font-size: 12px; padding: 4px 10px; border-radius: var(--border-radius-md); cursor: pointer; color: var(--color-text-secondary); }
+.tab.active { background: var(--color-background-secondary); color: var(--color-text-primary); font-weight: 500; }
+.top-right { margin-left: auto; display: flex; align-items: center; gap: 8px; }
+.run-btn { font-size: 12px; padding: 5px 12px; border-radius: var(--border-radius-md); background: var(--color-background-info); color: var(--color-text-info); border: none; cursor: pointer; font-weight: 500; display: flex; align-items: center; gap: 5px; }
+.report-btn { font-size: 11px; padding: 4px 10px; border-radius: var(--border-radius-md); background: var(--color-background-danger); color: var(--color-text-danger); border: 0.5px solid var(--color-border-danger); cursor: pointer; }
+.collab-area { display: flex; align-items: center; gap: 4px; padding: 3px 8px; border-radius: 99px; border: 0.5px solid var(--color-border-tertiary); background: var(--color-background-secondary); }
+.collab-dot { width: 18px; height: 18px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 9px; font-weight: 500; color: #fff; margin-left: -4px; border: 1.5px solid var(--color-background-primary); }
+.collab-label { font-size: 11px; color: var(--color-text-secondary); margin-left: 4px; }
+.editor-body { flex: 1; display: flex; overflow: hidden; }
+.file-tree { width: 140px; background: var(--color-background-primary); border-right: 0.5px solid var(--color-border-tertiary); padding: 8px 0; overflow-y: auto; }
+.tree-item { font-size: 12px; padding: 4px 12px; color: var(--color-text-secondary); cursor: pointer; display: flex; align-items: center; gap: 6px; }
+.tree-item:hover { background: var(--color-background-secondary); }
+.tree-item.active { color: var(--color-text-primary); background: var(--color-background-secondary); }
+.tree-folder { font-size: 11px; font-weight: 500; color: var(--color-text-tertiary); padding: 8px 12px 4px; text-transform: uppercase; letter-spacing: .05em; }
+.code-pane { flex: 1; display: flex; flex-direction: column; background: var(--color-background-primary); overflow: hidden; position: relative; }
+.code-area { flex: 1; overflow-y: auto; padding: 12px 0; font-family: var(--font-mono); font-size: 12.5px; line-height: 1.7; }
+.line { display: flex; min-height: 21px; position: relative; }
+.ln { width: 36px; text-align: right; padding-right: 12px; color: var(--color-text-tertiary); font-size: 11px; flex-shrink: 0; user-select: none; padding-top: 2px; }
+.code { flex: 1; padding-right: 12px; }
+/* Syntax highlight colors */
+.kw { color: #7F77DD; }
+.fn-color { color: #1D9E75; }
+.str { color: #BA7517; }
+.cmt { color: var(--color-text-tertiary); font-style: italic; }
+.err { background: rgba(226,75,74,.15); border-bottom: 2px solid #E24B4A; }
+.num { color: #D85A30; }
+/* Cursor overlays */
+.cursor-wrap { position: absolute; top: 0; left: 0; width: 100%; height: 100%; pointer-events: none; }
+.cursor-line { position: absolute; display: flex; align-items: flex-start; }
+.cursor-bar { width: 2px; height: 19px; border-radius: 1px; }
+.cursor-label { font-size: 10px; font-weight: 500; padding: 1px 5px; border-radius: 3px; color: #fff; white-space: nowrap; }
+/* Collab notification banner */
+.collab-banner { background: var(--color-background-success); border-bottom: 0.5px solid var(--color-border-success); padding: 6px 16px; display: flex; align-items: center; gap: 8px; font-size: 12px; color: var(--color-text-success); }
+.console-pane { height: 130px; border-top: 0.5px solid var(--color-border-tertiary); background: var(--color-background-secondary); display: flex; flex-direction: column; }
+.console-header { height: 28px; display: flex; align-items: center; padding: 0 12px; gap: 8px; border-bottom: 0.5px solid var(--color-border-tertiary); }
+.console-tab { font-size: 11px; color: var(--color-text-secondary); cursor: pointer; padding: 2px 6px; }
+.console-tab.active { color: var(--color-text-primary); font-weight: 500; }
+.console-output { flex: 1; padding: 8px 12px; font-family: var(--font-mono); font-size: 11.5px; line-height: 1.6; overflow-y: auto; }
+.out-ok { color: var(--color-text-success); }
+.out-err { color: var(--color-text-danger); }
+.out-muted { color: var(--color-text-tertiary); }
+</style>
+<div class="shell">
+  <nav class="sidebar">
+    <div class="nav-icon" title="Inicio">⌂</div>
+    <div class="nav-sep"></div>
+    <div class="nav-icon active" title="Editor">◈</div>
+    <div class="nav-icon" title="Aprendizaje">▦</div>
+    <div class="nav-sep"></div>
+    <div class="nav-icon" title="Panel profesor">⊞</div>
+    <div style="flex:1"></div>
+    <div class="nav-icon">⚙</div>
+  </nav>
+  <div class="editor-wrap">
+    <div class="editor-topbar">
+      <span style="font-size:13px;font-weight:500;color:var(--color-text-primary)">proyecto-fibonacci</span>
+      <span style="font-size:11px;color:var(--color-text-tertiary)">Python</span>
+      <div class="top-right">
+        <!-- Collaborative users indicator -->
+        <div class="collab-area" title="Colaboradores activos">
+          <div class="collab-dot" style="background:#7F77DD;margin-left:0">SC</div>
+          <div class="collab-dot" style="background:#1D9E75">MR</div>
+          <div class="collab-dot" style="background:#D85A30">GR</div>
+          <span class="collab-label">3 activos</span>
+        </div>
+        <button class="run-btn">▶ Ejecutar</button>
+        <button class="report-btn" onclick="alert('Reportar error: contexto del editor se adjunta automáticamente')">⚑ Reportar</button>
+      </div>
+    </div>
+    <!-- Collaboration join notification -->
+    <div class="collab-banner">
+      <span style="font-size:14px">●</span>
+      <strong>Melissa Ruiz</strong> y <strong>Gabriel Riaño</strong> se unieron al proyecto · Los cursores de tus compañeros son visibles en el editor
+    </div>
+    <div class="editor-body">
+      <div class="file-tree">
+        <div class="tree-folder">Archivos</div>
+        <div class="tree-item active">📄 main.py</div>
+        <div class="tree-item">📄 utils.py</div>
+        <div class="tree-item">📄 test_fib.py</div>
+        <div class="tree-folder" style="margin-top:8px">Proyecto</div>
+        <div class="tree-item">📁 src</div>
+        <div class="tree-item">📁 tests</div>
+        <div class="tree-item" style="font-size:11px;color:var(--color-text-tertiary);padding-left:20px">README.md</div>
+      </div>
+      <div class="code-pane">
+        <div class="code-area" id="code-area">
+          <div class="line"><span class="ln">1</span><span class="code"><span class="cmt"># Secuencia de Fibonacci con memoización</span></span></div>
+          <div class="line"><span class="ln">2</span><span class="code"></span></div>
+          <div class="line"><span class="ln">3</span><span class="code"><span class="kw">def</span> <span class="fn-color">fibonacci</span>(n, memo=<span class="kw">None</span>):</span></div>
+          <div class="line"><span class="ln">4</span><span class="code">    <span class="kw">if</span> memo <span class="kw">is</span> <span class="kw">None</span>:</span></div>
+          <div class="line"><span class="ln">5</span><span class="code">        memo = {}</span></div>
+          <div class="line"><span class="ln">6</span><span class="code">    <span class="kw">if</span> n &lt;= <span class="num">1</span>:</span></div>
+          <div class="line"><span class="ln">7</span><span class="code">        <span class="kw">return</span> n</span></div>
+          <div class="line"><span class="ln">8</span><span class="code">    <span class="kw">if</span> n <span class="kw">in</span> memo:</span></div>
+          <div class="line"><span class="ln">9</span><span class="code">        <span class="kw">return</span> memo[n]</span></div>
+          <div class="line"><span class="ln">10</span><span class="code">    memo[n] = <span class="fn-color">fibonacci</span>(n - <span class="num">1</span>, memo) + <span class="fn-color">fibonacci</span>(n - <span class="num">2</span>, memo)</span></div>
+          <div class="line"><span class="ln">11</span><span class="code">    <span class="kw">return</span> memo[n]</span></div>
+          <div class="line"><span class="ln">12</span><span class="code"></span></div>
+          <div class="line"><span class="ln">13</span><span class="code"><span class="cmt"># Imprime los primeros 10 números</span></span></div>
+          <div class="line"><span class="ln">14</span><span class="code"><span class="kw">for</span> i <span class="kw">in</span> <span class="fn-color">range</span>(<span class="num">10</span>):</span></div>
+          <div class="line" style="position:relative"><span class="ln">15</span><span class="code"><span class="err">    <span class="fn-color">print</span>(f<span class="str">"fib({i}) = {fibonacci(i}"</span>)</span></span>
+            <!-- Error tooltip -->
+            <div style="position:absolute;left:180px;bottom:22px;background:var(--color-background-danger);border:0.5px solid var(--color-border-danger);border-radius:var(--border-radius-md);padding:4px 8px;font-size:11px;color:var(--color-text-danger);white-space:nowrap;z-index:10">
+              SyntaxError: paréntesis sin cerrar
+            </div>
+          </div>
+          <div class="line"><span class="ln">16</span><span class="code"></span></div>
+        </div>
+        <!-- Cursor overlays (positioned absolutely over line 10 and 7) -->
+        <div class="cursor-wrap" style="top:0;left:140px">
+          <!-- Melissa cursor at line 7 -->
+          <div class="cursor-line" style="top:calc(21px * 6 + 12px);left:80px">
+            <div class="cursor-bar" style="background:#1D9E75"></div>
+            <div class="cursor-label" style="background:#1D9E75;margin-top:-14px;margin-left:1px">Melissa</div>
+          </div>
+          <!-- Gabriel cursor at line 11 -->
+          <div class="cursor-line" style="top:calc(21px * 10 + 12px);left:140px">
+            <div class="cursor-bar" style="background:#D85A30"></div>
+            <div class="cursor-label" style="background:#D85A30;margin-top:-14px;margin-left:1px">Gabriel</div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="console-pane">
+      <div class="console-header">
+        <span class="console-tab active">Consola</span>
+        <span class="console-tab">Problemas <span style="background:var(--color-background-danger);color:var(--color-text-danger);border-radius:99px;padding:0 5px;font-size:10px">1</span></span>
+        <span class="console-tab">Terminal</span>
+      </div>
+      <div class="console-output">
+        <div class="out-muted">$ python main.py</div>
+        <div class="out-err">  File "main.py", line 15</div>
+        <div class="out-err">    print(f"fib({i}) = {fibonacci(i}")</div>
+        <div class="out-err">                                      ^</div>
+        <div class="out-err">SyntaxError: '(' was never closed</div>
+        <div class="out-muted" style="margin-top:4px">Proceso terminado con código 1</div>
+      </div>
+    </div>
+  </div>
+</div>
