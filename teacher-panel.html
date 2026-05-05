@@ -1,0 +1,207 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Panel principal del profesor – Wireframe</title>
+  <style>
+    :root {
+      --font-sans: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+      --color-background-primary: #ffffff;
+      --color-background-secondary: #f6f8fa;
+      --color-background-tertiary: #eef0f3;
+      --color-background-info: #dbeafe;
+      --color-background-success: #dcfce7;
+      --color-background-warning: #fef3c7;
+      --color-background-danger: #fee2e2;
+      --color-text-primary: #1f2328;
+      --color-text-secondary: #656d76;
+      --color-text-tertiary: #9198a1;
+      --color-text-info: #1d4ed8;
+      --color-text-success: #15803d;
+      --color-text-warning: #b45309;
+      --color-text-danger: #dc2626;
+      --color-border-secondary: #b7bec8;
+      --color-border-tertiary: #d0d7de;
+      --color-border-warning: #fcd34d;
+      --color-border-danger: #fca5a5;
+      --color-border-success: #86efac;
+      --border-radius-md: 6px;
+      --border-radius-lg: 10px;
+    }
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    body { font-family: var(--font-sans); background: #f0f2f5; display: flex; align-items: center; justify-content: center; min-height: 100vh; }
+    .shell { display: flex; width: 960px; height: 600px; border: 0.5px solid var(--color-border-tertiary); border-radius: var(--border-radius-lg); overflow: hidden; background: var(--color-background-tertiary); box-shadow: 0 4px 24px rgba(0,0,0,.08); }
+    .sidebar { width: 52px; background: var(--color-background-primary); border-right: 0.5px solid var(--color-border-tertiary); display: flex; flex-direction: column; align-items: center; padding: 12px 0; gap: 6px; flex-shrink: 0; }
+    .nav-icon { width: 36px; height: 36px; border-radius: var(--border-radius-md); display: flex; align-items: center; justify-content: center; color: var(--color-text-secondary); font-size: 15px; text-decoration: none; transition: background .15s; }
+    .nav-icon:hover { background: var(--color-background-secondary); color: var(--color-text-primary); }
+    .nav-icon.active { background: var(--color-background-info); color: var(--color-text-info); }
+    .nav-sep { width: 24px; height: 0.5px; background: var(--color-border-tertiary); margin: 6px 0; }
+    .main { flex: 1; display: flex; flex-direction: column; overflow: hidden; }
+    .topbar { height: 44px; background: var(--color-background-primary); border-bottom: 0.5px solid var(--color-border-tertiary); display: flex; align-items: center; padding: 0 16px; gap: 10px; flex-shrink: 0; }
+    .topbar-label { font-size: 13px; font-weight: 500; color: var(--color-text-primary); display: inline; }
+    .badge { font-size: 11px; padding: 2px 8px; border-radius: 99px; background: var(--color-background-secondary); color: var(--color-text-secondary); border: 0.5px solid var(--color-border-tertiary); }
+    .badge-warn { background: var(--color-background-warning); color: var(--color-text-warning); border: 0.5px solid var(--color-border-warning); cursor: pointer; text-decoration: none; }
+    .topbar-right { margin-left: auto; display: flex; gap: 8px; }
+    .btn { font-size: 12px; padding: 5px 12px; border-radius: var(--border-radius-md); border: 0.5px solid var(--color-border-tertiary); background: var(--color-background-secondary); color: var(--color-text-secondary); cursor: pointer; font-weight: 500; text-decoration: none; display: inline-flex; align-items: center; gap: 4px; }
+    .btn-primary { background: var(--color-background-info); color: var(--color-text-info); border-color: transparent; }
+    .body-wrap { flex: 1; display: flex; overflow: hidden; }
+    /* Sub-navegación lateral */
+    .sub-nav { width: 160px; background: var(--color-background-primary); border-right: 0.5px solid var(--color-border-tertiary); padding: 10px 0; flex-shrink: 0; }
+    .sub-nav-label { font-size: 10px; font-weight: 500; color: var(--color-text-tertiary); text-transform: uppercase; letter-spacing: .05em; padding: 10px 14px 4px; }
+    .sub-nav-item { font-size: 12px; padding: 7px 14px; color: var(--color-text-secondary); display: flex; align-items: center; gap: 7px; text-decoration: none; transition: background .1s; }
+    .sub-nav-item:hover { background: var(--color-background-secondary); color: var(--color-text-primary); }
+    .sub-nav-item.active { color: var(--color-text-primary); background: var(--color-background-secondary); font-weight: 500; }
+    .sub-nav-sep { height: 0.5px; background: var(--color-border-tertiary); margin: 6px 12px; }
+    /* Contenido principal */
+    .content { flex: 1; display: flex; flex-direction: column; overflow: hidden; }
+    .tabs { height: 36px; border-bottom: 0.5px solid var(--color-border-tertiary); display: flex; align-items: flex-end; padding: 0 16px; gap: 2px; background: var(--color-background-primary); flex-shrink: 0; }
+    .tab { font-size: 12px; padding: 6px 12px; cursor: pointer; color: var(--color-text-secondary); border-bottom: 2px solid transparent; margin-bottom: -0.5px; text-decoration: none; }
+    .tab.active { color: var(--color-text-primary); border-color: #378ADD; font-weight: 500; }
+    .content-scroll { flex: 1; overflow-y: auto; padding: 14px; }
+    .section-label { font-size: 11px; font-weight: 500; color: var(--color-text-tertiary); text-transform: uppercase; letter-spacing: .05em; margin: 12px 0 8px; }
+    /* Filas de cursos */
+    .course-row { background: var(--color-background-primary); border: 0.5px solid var(--color-border-tertiary); border-radius: var(--border-radius-lg); padding: 12px 14px; margin-bottom: 8px; display: flex; align-items: center; gap: 12px; transition: border-color .15s; }
+    .course-row:hover { border-color: var(--color-border-secondary); }
+    .course-icon { width: 32px; height: 32px; border-radius: var(--border-radius-md); background: var(--color-background-info); display: flex; align-items: center; justify-content: center; font-size: 15px; flex-shrink: 0; }
+    .course-info { flex: 1; }
+    .course-title { font-size: 13px; font-weight: 500; color: var(--color-text-primary); }
+    .course-meta { font-size: 11px; color: var(--color-text-secondary); margin-top: 2px; display: flex; gap: 10px; }
+    .course-actions { display: flex; gap: 6px; }
+    .action-btn { font-size: 11px; padding: 3px 10px; border-radius: var(--border-radius-md); border: 0.5px solid var(--color-border-tertiary); background: var(--color-background-secondary); color: var(--color-text-secondary); text-decoration: none; cursor: pointer; transition: border-color .15s; }
+    .action-btn:hover { border-color: var(--color-border-secondary); color: var(--color-text-primary); }
+    /* Reportes recientes */
+    .report-item { background: var(--color-background-primary); border: 0.5px solid var(--color-border-tertiary); border-radius: var(--border-radius-lg); padding: 12px 14px; margin-bottom: 8px; }
+    .report-header { display: flex; align-items: center; gap: 8px; margin-bottom: 6px; }
+    .report-badge { font-size: 10px; padding: 2px 8px; border-radius: 99px; font-weight: 500; }
+    .rb-open { background: var(--color-background-warning); color: var(--color-text-warning); }
+    .rb-closed { background: var(--color-background-success); color: var(--color-text-success); }
+    .report-context { font-size: 11px; color: var(--color-text-tertiary); margin-left: auto; }
+    .report-title { font-size: 13px; font-weight: 500; color: var(--color-text-primary); margin-bottom: 4px; }
+    .report-desc { font-size: 12px; color: var(--color-text-secondary); line-height: 1.5; }
+    .report-footer { display: flex; align-items: center; gap: 8px; margin-top: 8px; }
+    .report-author { font-size: 11px; color: var(--color-text-tertiary); }
+    .resolve-btn { margin-left: auto; font-size: 11px; padding: 3px 10px; border-radius: var(--border-radius-md); border: 0.5px solid var(--color-border-success); color: var(--color-text-success); background: var(--color-background-success); text-decoration: none; cursor: pointer; }
+  </style>
+</head>
+<body>
+  <div class="shell">
+    <!-- Sidebar de navegación principal -->
+    <nav class="sidebar" title="Navegación principal">
+      <a class="nav-icon" href="student-dashboard.html" title="Inicio">⌂</a>
+      <div class="nav-sep"></div>
+      <a class="nav-icon" href="project-list.html" title="Proyectos / Editor">◈</a>
+      <a class="nav-icon" href="course-catalog.html" title="Aprendizaje">▦</a>
+      <div class="nav-sep"></div>
+      <a class="nav-icon active" href="teacher-panel.html" title="Panel profesor">⊞</a>
+      <div style="flex:1"></div>
+      <a class="nav-icon" href="#" title="Ajustes">⚙</a>
+    </nav>
+
+    <div class="main">
+      <!-- Topbar con acciones rápidas del profesor -->
+      <div class="topbar">
+        <h1 class="topbar-label">Panel de gestión</h1>
+        <span class="badge">Profesor</span>
+        <!-- Acceso rápido a reportes abiertos -->
+        <a class="badge badge-warn" href="reports-inbox.html">⚑ 3 reportes abiertos</a>
+        <div class="topbar-right">
+          <!-- Crear nuevo curso (flujo wizard de 10 clics) -->
+          <a class="btn btn-primary" href="wizard-create-course.html">+ Nuevo curso</a>
+        </div>
+      </div>
+
+      <div class="body-wrap">
+        <!-- Sub-navegación lateral del panel profesor -->
+        <div class="sub-nav">
+          <div class="sub-nav-label">Contenido</div>
+          <a class="sub-nav-item active" href="teacher-panel.html">◈ Mis cursos</a>
+          <a class="sub-nav-item" href="lesson-editor.html">▦ Lecciones</a>
+          <a class="sub-nav-item" href="exercise-editor.html">⊡ Ejercicios</a>
+          <div class="sub-nav-sep"></div>
+          <div class="sub-nav-label">Gestión</div>
+          <a class="sub-nav-item" href="reports-inbox.html">⚑ Reportes <span style="background:var(--color-background-warning);color:var(--color-text-warning);border-radius:99px;padding:0 5px;font-size:10px;margin-left:2px">3</span></a>
+          <a class="sub-nav-item" href="student-submission-view.html">▤ Estudiantes</a>
+        </div>
+
+        <!-- Área de contenido principal -->
+        <div class="content">
+          <div class="tabs">
+            <a class="tab active" href="#">Cursos</a>
+            <a class="tab" href="reports-inbox.html">Reportes de error</a>
+          </div>
+
+          <div class="content-scroll">
+            <!-- Lista de cursos propios del profesor -->
+            <div class="section-label" style="margin-top:0">Mis cursos</div>
+            <div class="course-row">
+              <div class="course-icon">🐍</div>
+              <div class="course-info">
+                <div class="course-title">Fundamentos Python</div>
+                <div class="course-meta">
+                  <span>5 módulos</span>
+                  <span>22 lecciones</span>
+                  <span style="color:var(--color-text-success)">✓ Publicado</span>
+                </div>
+              </div>
+              <div class="course-actions">
+                <!-- Acceso rápido a editar en ≤5 clics -->
+                <a class="action-btn" href="lesson-editor.html">✎ Editar</a>
+                <a class="action-btn" href="student-submission-view.html">▤ Estudiantes</a>
+                <a class="action-btn" href="wizard-create-course.html">⊞ Módulos</a>
+              </div>
+            </div>
+
+            <div class="course-row">
+              <div class="course-icon" style="background:var(--color-background-success)">🔣</div>
+              <div class="course-info">
+                <div class="course-title">Estructuras de datos</div>
+                <div class="course-meta">
+                  <span>4 módulos</span>
+                  <span>18 lecciones</span>
+                  <span style="color:var(--color-text-warning)">⚑ Borrador</span>
+                </div>
+              </div>
+              <div class="course-actions">
+                <a class="action-btn" href="lesson-editor.html">✎ Editar</a>
+                <a class="action-btn" href="#">▶ Publicar</a>
+              </div>
+            </div>
+
+            <!-- Reportes recientes con acceso directo a corregir -->
+            <div class="section-label">Reportes recientes</div>
+            <div class="report-item">
+              <div class="report-header">
+                <span class="report-badge rb-open">Abierto</span>
+                <span style="font-size:11px;color:var(--color-text-secondary)">Ejercicio · Fibonacci recursivo</span>
+                <span class="report-context">hace 2h</span>
+              </div>
+              <div class="report-title">El enunciado del ejercicio tiene un error en el ejemplo</div>
+              <div class="report-desc">El ejemplo muestra fibonacci(5)=5 pero el resultado correcto es 5, el problema es que el índice en la tabla de resultados empieza en 0 no en 1…</div>
+              <div class="report-footer">
+                <span class="report-author">Reportado por Samuel C. · Estudiante</span>
+                <!-- Acceso directo a corregir (≤5 clics) -->
+                <a class="resolve-btn" href="exercise-editor.html">✎ Corregir</a>
+              </div>
+            </div>
+
+            <div class="report-item">
+              <div class="report-header">
+                <span class="report-badge rb-open">Abierto</span>
+                <span style="font-size:11px;color:var(--color-text-secondary)">Lección · Recursión</span>
+                <span class="report-context">ayer</span>
+              </div>
+              <div class="report-title">El video de recursión no carga en Safari</div>
+              <div class="report-desc">Al abrir la lección desde Safari el video muestra un error de codec.</div>
+              <div class="report-footer">
+                <span class="report-author">Reportado por Melissa R. · Estudiante</span>
+                <a class="resolve-btn" href="lesson-editor.html">✎ Corregir</a>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</body>
+</html>

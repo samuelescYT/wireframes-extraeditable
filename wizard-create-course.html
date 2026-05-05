@@ -1,0 +1,201 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Wizard: Crear/editar curso – Wireframe</title>
+  <style>
+    :root {
+      --font-sans: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+      --color-background-primary: #ffffff;
+      --color-background-secondary: #f6f8fa;
+      --color-background-tertiary: #eef0f3;
+      --color-background-info: #dbeafe;
+      --color-background-success: #dcfce7;
+      --color-background-warning: #fef3c7;
+      --color-background-danger: #fee2e2;
+      --color-text-primary: #1f2328;
+      --color-text-secondary: #656d76;
+      --color-text-tertiary: #9198a1;
+      --color-text-info: #1d4ed8;
+      --color-text-success: #15803d;
+      --color-text-warning: #b45309;
+      --color-text-danger: #dc2626;
+      --color-border-secondary: #b7bec8;
+      --color-border-tertiary: #d0d7de;
+      --color-border-danger: #fca5a5;
+      --color-border-success: #86efac;
+      --border-radius-md: 6px;
+      --border-radius-lg: 10px;
+    }
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    body { font-family: var(--font-sans); background: #f0f2f5; display: flex; align-items: center; justify-content: center; min-height: 100vh; }
+    .shell { display: flex; width: 960px; height: 600px; border: 0.5px solid var(--color-border-tertiary); border-radius: var(--border-radius-lg); overflow: hidden; background: var(--color-background-tertiary); box-shadow: 0 4px 24px rgba(0,0,0,.08); }
+    .sidebar { width: 52px; background: var(--color-background-primary); border-right: 0.5px solid var(--color-border-tertiary); display: flex; flex-direction: column; align-items: center; padding: 12px 0; gap: 6px; flex-shrink: 0; }
+    .nav-icon { width: 36px; height: 36px; border-radius: var(--border-radius-md); display: flex; align-items: center; justify-content: center; color: var(--color-text-secondary); font-size: 15px; text-decoration: none; transition: background .15s; }
+    .nav-icon:hover { background: var(--color-background-secondary); color: var(--color-text-primary); }
+    .nav-icon.active { background: var(--color-background-info); color: var(--color-text-info); }
+    .nav-sep { width: 24px; height: 0.5px; background: var(--color-border-tertiary); margin: 6px 0; }
+    .main { flex: 1; display: flex; flex-direction: column; overflow: hidden; }
+    .topbar { height: 44px; background: var(--color-background-primary); border-bottom: 0.5px solid var(--color-border-tertiary); display: flex; align-items: center; padding: 0 16px; gap: 10px; flex-shrink: 0; }
+    .breadcrumb { font-size: 12px; color: var(--color-text-tertiary); display: flex; align-items: center; gap: 4px; }
+    .breadcrumb a { color: var(--color-text-secondary); text-decoration: none; }
+    .breadcrumb a:hover { text-decoration: underline; }
+    .breadcrumb .current { color: var(--color-text-primary); font-weight: 500; }
+    .topbar-right { margin-left: auto; display: flex; align-items: center; gap: 8px; }
+    .avatar { width: 26px; height: 26px; border-radius: 50%; background: var(--color-background-info); display: flex; align-items: center; justify-content: center; font-size: 10px; font-weight: 500; color: var(--color-text-info); }
+    .body-wrap { flex: 1; display: flex; overflow: hidden; }
+    /* Panel de pasos del wizard */
+    .steps-panel { width: 200px; background: var(--color-background-primary); border-right: 0.5px solid var(--color-border-tertiary); display: flex; flex-direction: column; overflow: hidden; flex-shrink: 0; }
+    .steps-header { padding: 14px 14px 10px; border-bottom: 0.5px solid var(--color-border-tertiary); }
+    .steps-title { font-size: 12px; font-weight: 500; color: var(--color-text-primary); }
+    .steps-sub { font-size: 11px; color: var(--color-text-secondary); margin-top: 2px; }
+    /* Progreso del wizard en barra */
+    .wizard-progress { height: 3px; background: var(--color-background-secondary); border-radius: 2px; margin-top: 10px; overflow: hidden; }
+    .wizard-fill { height: 100%; border-radius: 2px; background: #378ADD; }
+    .steps-list { flex: 1; overflow-y: auto; padding: 10px 0; }
+    .step-item { display: flex; align-items: center; gap: 10px; padding: 8px 14px; cursor: pointer; }
+    .step-dot { width: 22px; height: 22px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 10px; font-weight: 600; flex-shrink: 0; }
+    .step-dot.done { background: var(--color-background-success); color: var(--color-text-success); }
+    .step-dot.active { background: var(--color-background-info); color: var(--color-text-info); }
+    .step-dot.pending { background: var(--color-background-secondary); color: var(--color-text-tertiary); }
+    .step-text { font-size: 12px; }
+    .step-text.done { color: var(--color-text-success); }
+    .step-text.active { color: var(--color-text-primary); font-weight: 500; }
+    .step-text.pending { color: var(--color-text-tertiary); }
+    /* Contenido del paso activo */
+    .step-content { flex: 1; display: flex; flex-direction: column; overflow: hidden; }
+    .step-area { flex: 1; overflow-y: auto; padding: 22px 28px; }
+    .step-title { font-size: 15px; font-weight: 600; color: var(--color-text-primary); margin-bottom: 4px; }
+    .step-desc { font-size: 12px; color: var(--color-text-secondary); margin-bottom: 18px; line-height: 1.5; }
+    .form-group { display: flex; flex-direction: column; gap: 5px; margin-bottom: 14px; }
+    .form-label { font-size: 11px; font-weight: 500; color: var(--color-text-secondary); }
+    .form-input { font-size: 13px; padding: 7px 10px; border-radius: var(--border-radius-md); border: 0.5px solid var(--color-border-secondary); background: var(--color-background-primary); color: var(--color-text-primary); font-family: var(--font-sans); }
+    .form-input:focus { outline: none; border-color: #378ADD; }
+    .form-select { font-size: 12px; padding: 7px 8px; border-radius: var(--border-radius-md); border: 0.5px solid var(--color-border-secondary); background: var(--color-background-primary); color: var(--color-text-primary); font-family: var(--font-sans); }
+    .form-textarea { font-size: 12px; padding: 8px 10px; border-radius: var(--border-radius-md); border: 0.5px solid var(--color-border-secondary); background: var(--color-background-primary); color: var(--color-text-primary); font-family: var(--font-sans); resize: vertical; min-height: 70px; line-height: 1.5; }
+    .form-textarea:focus, .form-select:focus { outline: none; border-color: #378ADD; }
+    /* Validación inline */
+    .inline-ok { font-size: 11px; color: var(--color-text-success); }
+    .click-hint { font-size: 10px; color: var(--color-text-tertiary); }
+    .step-footer { padding: 12px 28px; border-top: 0.5px solid var(--color-border-tertiary); display: flex; align-items: center; gap: 8px; background: var(--color-background-primary); flex-shrink: 0; }
+    .btn { font-size: 12px; padding: 6px 14px; border-radius: var(--border-radius-md); border: 0.5px solid var(--color-border-tertiary); background: var(--color-background-secondary); color: var(--color-text-secondary); cursor: pointer; font-weight: 500; text-decoration: none; display: inline-flex; align-items: center; }
+    .btn:hover { border-color: var(--color-border-secondary); color: var(--color-text-primary); }
+    .btn-primary { background: var(--color-background-info); color: var(--color-text-info); border-color: transparent; }
+    .btn-primary:hover { opacity: .9; }
+    .click-counter { margin-left: auto; font-size: 11px; color: var(--color-text-tertiary); }
+  </style>
+</head>
+<body>
+  <div class="shell">
+    <!-- Sidebar de navegación principal -->
+    <nav class="sidebar" title="Navegación principal">
+      <a class="nav-icon" href="student-dashboard.html" title="Inicio">⌂</a>
+      <div class="nav-sep"></div>
+      <a class="nav-icon" href="project-list.html" title="Proyectos / Editor">◈</a>
+      <a class="nav-icon" href="course-catalog.html" title="Aprendizaje">▦</a>
+      <div class="nav-sep"></div>
+      <a class="nav-icon active" href="teacher-panel.html" title="Panel profesor">⊞</a>
+      <div style="flex:1"></div>
+      <a class="nav-icon" href="#" title="Ajustes">⚙</a>
+    </nav>
+
+    <div class="main">
+      <!-- Topbar con breadcrumb -->
+      <div class="topbar">
+        <div class="breadcrumb">
+          <a href="teacher-panel.html">Panel profesor</a> ›
+          <span class="current">Nuevo curso – flujo guiado</span>
+        </div>
+        <div class="topbar-right">
+          <div class="avatar">SC</div>
+        </div>
+      </div>
+
+      <div class="body-wrap">
+        <!-- Panel de pasos numerados del wizard (10 clics máx: nombre→módulo→lección→contenido→ejercicio→publicar) -->
+        <div class="steps-panel">
+          <div class="steps-header">
+            <div class="steps-title">Nuevo curso</div>
+            <div class="steps-sub">Paso 3 de 6</div>
+            <!-- Barra de progreso del wizard -->
+            <div class="wizard-progress"><div class="wizard-fill" style="width:50%"></div></div>
+          </div>
+          <div class="steps-list">
+            <div class="step-item">
+              <div class="step-dot done">✓</div>
+              <span class="step-text done">Nombre del curso</span>
+            </div>
+            <div class="step-item">
+              <div class="step-dot done">✓</div>
+              <span class="step-text done">Crear módulo</span>
+            </div>
+            <div class="step-item">
+              <div class="step-dot active">3</div>
+              <span class="step-text active">Agregar lección</span>
+            </div>
+            <div class="step-item">
+              <div class="step-dot pending">4</div>
+              <span class="step-text pending">Contenido visual</span>
+            </div>
+            <div class="step-item">
+              <div class="step-dot pending">5</div>
+              <span class="step-text pending">Crear ejercicio</span>
+            </div>
+            <div class="step-item">
+              <div class="step-dot pending">6</div>
+              <span class="step-text pending">Publicar</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- Contenido del paso activo del wizard -->
+        <div class="step-content">
+          <div class="step-area">
+            <h1 class="step-title">Agregar lección al módulo</h1>
+            <p class="step-desc">Define el nombre, duración estimada y tipo de contenido de la primera lección de tu módulo. Puedes agregar más lecciones después.</p>
+
+            <div class="form-group">
+              <label class="form-label">Nombre de la lección *</label>
+              <input class="form-input" type="text" value="Recursión básica" />
+              <!-- Validación inline: no al final -->
+              <span class="inline-ok">✓ Nombre válido</span>
+              <span class="click-hint">Clic 5 de 10 en el flujo completo</span>
+            </div>
+
+            <div class="form-group">
+              <label class="form-label">Descripción breve</label>
+              <textarea class="form-textarea" placeholder="Qué aprenderá el estudiante en esta lección…">Aprenderás cómo definir funciones recursivas en Python, el concepto de caso base y caso recursivo, y cómo usar memoización para optimizar.</textarea>
+            </div>
+
+            <div class="form-group">
+              <label class="form-label">Duración estimada</label>
+              <input class="form-input" type="text" placeholder="ej. 15 min" value="15 min" style="max-width:140px" />
+            </div>
+
+            <div class="form-group">
+              <label class="form-label">Tipo de contenido</label>
+              <!-- Dropdown de tipo de contenido -->
+              <select class="form-select" style="max-width:200px">
+                <option selected>Video + código</option>
+                <option>Solo texto</option>
+                <option>Diapositivas</option>
+                <option>Video + ejercicio</option>
+              </select>
+            </div>
+          </div>
+
+          <!-- Footer con botones Atrás / Siguiente y contador de clics -->
+          <div class="step-footer">
+            <a class="btn" href="teacher-panel.html">Cancelar</a>
+            <a class="btn" href="wizard-create-course.html">‹ Atrás</a>
+            <!-- Botón principal Siguiente (avanza al paso 4) -->
+            <a class="btn btn-primary" href="lesson-editor.html">Siguiente ›</a>
+            <span class="click-counter">Clic 5 / 10</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</body>
+</html>

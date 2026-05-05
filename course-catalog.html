@@ -1,0 +1,239 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Catálogo de cursos – Wireframe</title>
+  <style>
+    :root {
+      --font-sans: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+      --color-background-primary: #ffffff;
+      --color-background-secondary: #f6f8fa;
+      --color-background-tertiary: #eef0f3;
+      --color-background-info: #dbeafe;
+      --color-background-success: #dcfce7;
+      --color-background-warning: #fef3c7;
+      --color-background-danger: #fee2e2;
+      --color-text-primary: #1f2328;
+      --color-text-secondary: #656d76;
+      --color-text-tertiary: #9198a1;
+      --color-text-info: #1d4ed8;
+      --color-text-success: #15803d;
+      --color-text-warning: #b45309;
+      --color-text-danger: #dc2626;
+      --color-border-secondary: #b7bec8;
+      --color-border-tertiary: #d0d7de;
+      --color-border-danger: #fca5a5;
+      --border-radius-md: 6px;
+      --border-radius-lg: 10px;
+    }
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    body { font-family: var(--font-sans); background: #f0f2f5; display: flex; align-items: center; justify-content: center; min-height: 100vh; }
+    .shell { display: flex; width: 960px; height: 600px; border: 0.5px solid var(--color-border-tertiary); border-radius: var(--border-radius-lg); overflow: hidden; background: var(--color-background-tertiary); box-shadow: 0 4px 24px rgba(0,0,0,.08); }
+    .sidebar { width: 52px; background: var(--color-background-primary); border-right: 0.5px solid var(--color-border-tertiary); display: flex; flex-direction: column; align-items: center; padding: 12px 0; gap: 6px; flex-shrink: 0; }
+    .nav-icon { width: 36px; height: 36px; border-radius: var(--border-radius-md); display: flex; align-items: center; justify-content: center; color: var(--color-text-secondary); font-size: 15px; text-decoration: none; transition: background .15s; }
+    .nav-icon:hover { background: var(--color-background-secondary); color: var(--color-text-primary); }
+    .nav-icon.active { background: var(--color-background-info); color: var(--color-text-info); }
+    .nav-sep { width: 24px; height: 0.5px; background: var(--color-border-tertiary); margin: 6px 0; }
+    .main { flex: 1; display: flex; flex-direction: column; overflow: hidden; }
+    .topbar { height: 44px; background: var(--color-background-primary); border-bottom: 0.5px solid var(--color-border-tertiary); display: flex; align-items: center; padding: 0 16px; gap: 10px; flex-shrink: 0; }
+    .breadcrumb { font-size: 12px; color: var(--color-text-tertiary); display: flex; align-items: center; gap: 4px; }
+    .breadcrumb a { color: var(--color-text-secondary); text-decoration: none; }
+    .breadcrumb a:hover { text-decoration: underline; }
+    .breadcrumb .current { color: var(--color-text-primary); font-weight: 500; }
+    .topbar-right { margin-left: auto; display: flex; align-items: center; gap: 8px; }
+    .report-btn { font-size: 11px; padding: 4px 10px; border-radius: var(--border-radius-md); background: var(--color-background-danger); color: var(--color-text-danger); border: 0.5px solid var(--color-border-danger); text-decoration: none; font-weight: 500; }
+    .avatar { width: 26px; height: 26px; border-radius: 50%; background: var(--color-background-info); display: flex; align-items: center; justify-content: center; font-size: 10px; font-weight: 500; color: var(--color-text-info); }
+    .body-wrap { flex: 1; display: flex; overflow: hidden; }
+    /* Filtros laterales */
+    .filters-panel { width: 160px; background: var(--color-background-primary); border-right: 0.5px solid var(--color-border-tertiary); padding: 12px 0; flex-shrink: 0; overflow-y: auto; }
+    .filter-group { padding: 0 12px 12px; }
+    .filter-title { font-size: 10px; font-weight: 500; color: var(--color-text-tertiary); text-transform: uppercase; letter-spacing: .05em; margin-bottom: 8px; margin-top: 8px; }
+    .filter-option { display: flex; align-items: center; gap: 7px; font-size: 12px; color: var(--color-text-secondary); padding: 4px 0; cursor: pointer; }
+    .filter-option input[type="checkbox"] { accent-color: #1d4ed8; width: 13px; height: 13px; }
+    .filter-option.active { color: var(--color-text-primary); font-weight: 500; }
+    /* Contenido principal */
+    .content { flex: 1; overflow-y: auto; padding: 16px; display: flex; flex-direction: column; gap: 12px; }
+    .search-row { display: flex; align-items: center; gap: 8px; }
+    .search-input { flex: 1; font-size: 12px; padding: 6px 10px; border-radius: var(--border-radius-md); border: 0.5px solid var(--color-border-tertiary); background: var(--color-background-primary); color: var(--color-text-primary); font-family: var(--font-sans); }
+    .sort-select { font-size: 12px; padding: 5px 8px; border-radius: var(--border-radius-md); border: 0.5px solid var(--color-border-tertiary); background: var(--color-background-primary); color: var(--color-text-secondary); font-family: var(--font-sans); }
+    .section-label { font-size: 11px; font-weight: 500; color: var(--color-text-secondary); text-transform: uppercase; letter-spacing: .06em; margin-bottom: 8px; }
+    .courses-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; }
+    .course-card { background: var(--color-background-primary); border: 0.5px solid var(--color-border-tertiary); border-radius: var(--border-radius-lg); padding: 14px; cursor: pointer; transition: border-color .15s; text-decoration: none; display: block; color: inherit; }
+    .course-card:hover { border-color: var(--color-border-secondary); }
+    .course-card-header { display: flex; align-items: flex-start; gap: 10px; margin-bottom: 10px; }
+    .course-icon { width: 36px; height: 36px; border-radius: var(--border-radius-md); background: var(--color-background-info); display: flex; align-items: center; justify-content: center; font-size: 18px; flex-shrink: 0; }
+    .course-title { font-size: 13px; font-weight: 500; color: var(--color-text-primary); }
+    .course-meta { font-size: 11px; color: var(--color-text-tertiary); margin-top: 2px; }
+    .chip { font-size: 10px; padding: 2px 7px; border-radius: 99px; background: var(--color-background-secondary); color: var(--color-text-secondary); border: 0.5px solid var(--color-border-tertiary); }
+    .chip.py { background: #dbeafe; color: #1d4ed8; border-color: #93c5fd; }
+    .chip.js { background: #fef3c7; color: #b45309; border-color: #fcd34d; }
+    .chip.go { background: #dcfce7; color: #15803d; border-color: #86efac; }
+    .chip.beginner { background: #f0fdf4; color: #15803d; }
+    .chip.intermediate { background: #eff6ff; color: #1d4ed8; }
+    .course-chips { display: flex; flex-wrap: wrap; gap: 5px; margin-bottom: 10px; }
+    .enroll-btn { width: 100%; font-size: 12px; padding: 6px; border-radius: var(--border-radius-md); background: var(--color-background-info); color: var(--color-text-info); border: none; cursor: pointer; font-weight: 500; text-decoration: none; text-align: center; display: block; }
+    .enrolled-badge { width: 100%; font-size: 12px; padding: 6px; border-radius: var(--border-radius-md); background: var(--color-background-success); color: var(--color-text-success); text-align: center; font-weight: 500; }
+    .progress-bar { height: 3px; background: var(--color-background-secondary); border-radius: 2px; overflow: hidden; margin-bottom: 6px; }
+    .progress-fill { height: 100%; border-radius: 2px; background: #1D9E75; }
+  </style>
+</head>
+<body>
+  <div class="shell">
+    <!-- Sidebar de navegación principal -->
+    <nav class="sidebar" title="Navegación principal">
+      <a class="nav-icon" href="student-dashboard.html" title="Inicio">⌂</a>
+      <div class="nav-sep"></div>
+      <a class="nav-icon" href="project-list.html" title="Proyectos / Editor">◈</a>
+      <a class="nav-icon active" href="course-catalog.html" title="Aprendizaje">▦</a>
+      <div class="nav-sep"></div>
+      <a class="nav-icon" href="teacher-panel.html" title="Panel profesor">⊞</a>
+      <div style="flex:1"></div>
+      <a class="nav-icon" href="#" title="Ajustes">⚙</a>
+    </nav>
+
+    <div class="main">
+      <!-- Topbar con breadcrumb -->
+      <div class="topbar">
+        <h1 style="font-size:0;position:absolute">Catálogo de cursos</h1>
+        <div class="breadcrumb">
+        </div>
+        <div class="topbar-right">
+          <a class="report-btn" href="modal-report-error.html">⚑ Reportar error</a>
+          <div class="avatar">SC</div>
+        </div>
+      </div>
+
+      <div class="body-wrap">
+        <!-- Panel de filtros laterales: por lenguaje y nivel -->
+        <div class="filters-panel">
+          <div class="filter-group">
+            <div class="filter-title">Lenguaje</div>
+            <!-- Checkboxes de progreso / filtro -->
+            <label class="filter-option active">
+              <input type="checkbox" checked /> Todos
+            </label>
+            <label class="filter-option">
+              <input type="checkbox" /> Python
+            </label>
+            <label class="filter-option">
+              <input type="checkbox" /> JavaScript
+            </label>
+            <label class="filter-option">
+              <input type="checkbox" /> Go
+            </label>
+            <label class="filter-option">
+              <input type="checkbox" /> Rust
+            </label>
+          </div>
+          <div class="filter-group" style="border-top:0.5px solid var(--color-border-tertiary);padding-top:12px">
+            <div class="filter-title">Nivel</div>
+            <label class="filter-option">
+              <input type="checkbox" /> Principiante
+            </label>
+            <label class="filter-option">
+              <input type="checkbox" /> Intermedio
+            </label>
+            <label class="filter-option">
+              <input type="checkbox" /> Avanzado
+            </label>
+          </div>
+          <div class="filter-group" style="border-top:0.5px solid var(--color-border-tertiary);padding-top:12px">
+            <div class="filter-title">Estado</div>
+            <label class="filter-option">
+              <input type="checkbox" /> Inscrito
+            </label>
+            <label class="filter-option">
+              <input type="checkbox" /> No inscrito
+            </label>
+          </div>
+        </div>
+
+        <div class="content">
+          <!-- Búsqueda -->
+          <div class="search-row">
+            <input class="search-input" type="search" placeholder="Buscar cursos…" />
+            <select class="sort-select">
+              <option>Más populares</option>
+              <option>Más recientes</option>
+              <option>Mejor valorados</option>
+            </select>
+          </div>
+
+          <!-- Mis cursos (inscritos) -->
+          <div>
+            <div class="section-label">Mis cursos</div>
+            <div class="courses-grid">
+              <a class="course-card" href="course-view.html">
+                <div class="course-card-header">
+                  <div class="course-icon">🐍</div>
+                  <div>
+                    <div class="course-title">Fundamentos Python</div>
+                    <div class="course-meta">5 módulos · 22 lecciones</div>
+                  </div>
+                </div>
+                <div class="course-chips">
+                  <span class="chip py">Python</span>
+                  <span class="chip beginner">Principiante</span>
+                </div>
+                <div class="progress-bar"><div class="progress-fill" style="width:62%"></div></div>
+                <div class="enrolled-badge">✓ Inscrito · 62% completado</div>
+              </a>
+              <a class="course-card" href="course-view.html">
+                <div class="course-card-header">
+                  <div class="course-icon" style="background:var(--color-background-success)">🔣</div>
+                  <div>
+                    <div class="course-title">Estructuras de datos</div>
+                    <div class="course-meta">4 módulos · 18 lecciones</div>
+                  </div>
+                </div>
+                <div class="course-chips">
+                  <span class="chip py">Python</span>
+                  <span class="chip intermediate">Intermedio</span>
+                </div>
+                <div class="progress-bar"><div class="progress-fill" style="width:20%"></div></div>
+                <div class="enrolled-badge">✓ Inscrito · 20% completado</div>
+              </a>
+            </div>
+          </div>
+
+          <!-- Todos los cursos disponibles -->
+          <div>
+            <div class="section-label">Explorar todos</div>
+            <div class="courses-grid">
+              <a class="course-card" href="course-view.html">
+                <div class="course-card-header">
+                  <div class="course-icon" style="background:var(--color-background-warning)">🌐</div>
+                  <div>
+                    <div class="course-title">JavaScript moderno</div>
+                    <div class="course-meta">6 módulos · 30 lecciones</div>
+                  </div>
+                </div>
+                <div class="course-chips">
+                  <span class="chip js">JavaScript</span>
+                  <span class="chip beginner">Principiante</span>
+                </div>
+                <a class="enroll-btn" href="course-view.html">+ Inscribirse</a>
+              </a>
+              <a class="course-card" href="course-view.html">
+                <div class="course-card-header">
+                  <div class="course-icon" style="background:#dcfce7">🦫</div>
+                  <div>
+                    <div class="course-title">Go desde cero</div>
+                    <div class="course-meta">4 módulos · 20 lecciones</div>
+                  </div>
+                </div>
+                <div class="course-chips">
+                  <span class="chip go">Go</span>
+                  <span class="chip intermediate">Intermedio</span>
+                </div>
+                <a class="enroll-btn" href="course-view.html">+ Inscribirse</a>
+              </a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</body>
+</html>

@@ -1,0 +1,240 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Bandeja de reportes – Wireframe</title>
+  <style>
+    :root {
+      --font-sans: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+      --color-background-primary: #ffffff;
+      --color-background-secondary: #f6f8fa;
+      --color-background-tertiary: #eef0f3;
+      --color-background-info: #dbeafe;
+      --color-background-success: #dcfce7;
+      --color-background-warning: #fef3c7;
+      --color-background-danger: #fee2e2;
+      --color-text-primary: #1f2328;
+      --color-text-secondary: #656d76;
+      --color-text-tertiary: #9198a1;
+      --color-text-info: #1d4ed8;
+      --color-text-success: #15803d;
+      --color-text-warning: #b45309;
+      --color-text-danger: #dc2626;
+      --color-border-secondary: #b7bec8;
+      --color-border-tertiary: #d0d7de;
+      --color-border-warning: #fcd34d;
+      --color-border-success: #86efac;
+      --color-border-danger: #fca5a5;
+      --border-radius-md: 6px;
+      --border-radius-lg: 10px;
+    }
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    body { font-family: var(--font-sans); background: #f0f2f5; display: flex; align-items: center; justify-content: center; min-height: 100vh; }
+    .shell { display: flex; width: 960px; height: 600px; border: 0.5px solid var(--color-border-tertiary); border-radius: var(--border-radius-lg); overflow: hidden; background: var(--color-background-tertiary); box-shadow: 0 4px 24px rgba(0,0,0,.08); }
+    .sidebar { width: 52px; background: var(--color-background-primary); border-right: 0.5px solid var(--color-border-tertiary); display: flex; flex-direction: column; align-items: center; padding: 12px 0; gap: 6px; flex-shrink: 0; }
+    .nav-icon { width: 36px; height: 36px; border-radius: var(--border-radius-md); display: flex; align-items: center; justify-content: center; color: var(--color-text-secondary); font-size: 15px; text-decoration: none; transition: background .15s; }
+    .nav-icon:hover { background: var(--color-background-secondary); color: var(--color-text-primary); }
+    .nav-icon.active { background: var(--color-background-info); color: var(--color-text-info); }
+    .nav-sep { width: 24px; height: 0.5px; background: var(--color-border-tertiary); margin: 6px 0; }
+    .main { flex: 1; display: flex; flex-direction: column; overflow: hidden; }
+    .topbar { height: 44px; background: var(--color-background-primary); border-bottom: 0.5px solid var(--color-border-tertiary); display: flex; align-items: center; padding: 0 16px; gap: 10px; flex-shrink: 0; }
+    .topbar-label { font-size: 13px; font-weight: 500; color: var(--color-text-primary); display: inline; }
+    .badge { font-size: 11px; padding: 2px 8px; border-radius: 99px; }
+    .badge-warn { background: var(--color-background-warning); color: var(--color-text-warning); border: 0.5px solid var(--color-border-warning); }
+    .topbar-right { margin-left: auto; display: flex; align-items: center; gap: 8px; }
+    .btn { font-size: 12px; padding: 5px 12px; border-radius: var(--border-radius-md); border: 0.5px solid var(--color-border-tertiary); background: var(--color-background-secondary); color: var(--color-text-secondary); cursor: pointer; font-weight: 500; text-decoration: none; display: inline-flex; align-items: center; gap: 4px; }
+    .btn:hover { border-color: var(--color-border-secondary); color: var(--color-text-primary); }
+    .avatar { width: 26px; height: 26px; border-radius: 50%; background: var(--color-background-info); display: flex; align-items: center; justify-content: center; font-size: 10px; font-weight: 500; color: var(--color-text-info); }
+    .body-wrap { flex: 1; display: flex; overflow: hidden; }
+    /* Panel de filtros / estadísticas */
+    .stats-panel { width: 180px; background: var(--color-background-primary); border-right: 0.5px solid var(--color-border-tertiary); padding: 12px 0; flex-shrink: 0; overflow-y: auto; }
+    .stats-group { padding: 0 12px 12px; }
+    .stats-title { font-size: 10px; font-weight: 500; color: var(--color-text-tertiary); text-transform: uppercase; letter-spacing: .05em; margin-bottom: 8px; margin-top: 8px; }
+    .stat-item { display: flex; align-items: center; gap: 8px; font-size: 12px; color: var(--color-text-secondary); padding: 4px 0; cursor: pointer; }
+    .stat-item.active { color: var(--color-text-primary); font-weight: 500; }
+    .stat-count { margin-left: auto; font-size: 11px; font-weight: 600; }
+    .stat-count.warn { color: var(--color-text-warning); }
+    .stat-count.ok { color: var(--color-text-success); }
+    /* Contenido principal */
+    .content { flex: 1; display: flex; flex-direction: column; overflow: hidden; }
+    .filter-bar { height: 44px; background: var(--color-background-primary); border-bottom: 0.5px solid var(--color-border-tertiary); display: flex; align-items: center; padding: 0 16px; gap: 8px; flex-shrink: 0; }
+    .filter-tab { font-size: 12px; padding: 4px 10px; border-radius: var(--border-radius-md); cursor: pointer; color: var(--color-text-secondary); text-decoration: none; transition: background .1s; }
+    .filter-tab:hover { background: var(--color-background-secondary); }
+    .filter-tab.active { background: var(--color-background-secondary); color: var(--color-text-primary); font-weight: 500; }
+    .filter-sep { width: 0.5px; height: 18px; background: var(--color-border-tertiary); }
+    .sort-select { font-size: 12px; padding: 4px 7px; border-radius: var(--border-radius-md); border: 0.5px solid var(--color-border-tertiary); background: var(--color-background-primary); color: var(--color-text-secondary); font-family: var(--font-sans); margin-left: auto; }
+    .reports-list { flex: 1; overflow-y: auto; padding: 12px 14px; display: flex; flex-direction: column; gap: 8px; }
+    /* Tarjeta de reporte */
+    .report-card { background: var(--color-background-primary); border: 0.5px solid var(--color-border-tertiary); border-radius: var(--border-radius-lg); padding: 13px 15px; transition: border-color .15s; }
+    .report-card:hover { border-color: var(--color-border-secondary); }
+    .report-card.open { border-left: 3px solid #BA7517; }
+    .report-card.resolved { border-left: 3px solid #1D9E75; }
+    .report-header { display: flex; align-items: center; gap: 8px; margin-bottom: 6px; }
+    .report-badge { font-size: 10px; padding: 2px 8px; border-radius: 99px; font-weight: 500; }
+    .rb-open { background: var(--color-background-warning); color: var(--color-text-warning); }
+    .rb-resolved { background: var(--color-background-success); color: var(--color-text-success); }
+    .report-context { font-size: 11px; color: var(--color-text-tertiary); }
+    .report-time { font-size: 11px; color: var(--color-text-tertiary); margin-left: auto; }
+    .report-title { font-size: 13px; font-weight: 500; color: var(--color-text-primary); margin-bottom: 4px; }
+    .report-desc { font-size: 12px; color: var(--color-text-secondary); line-height: 1.5; }
+    .report-footer { display: flex; align-items: center; gap: 8px; margin-top: 8px; }
+    .report-author { font-size: 11px; color: var(--color-text-tertiary); }
+    .action-btn { font-size: 11px; padding: 3px 10px; border-radius: var(--border-radius-md); border: 0.5px solid var(--color-border-success); color: var(--color-text-success); background: var(--color-background-success); text-decoration: none; cursor: pointer; margin-left: auto; }
+    .action-btn.fix-lesson { border-color: #93c5fd; color: var(--color-text-info); background: var(--color-background-info); }
+    .action-btn.fix-exercise { border-color: var(--color-border-warning); color: var(--color-text-warning); background: var(--color-background-warning); }
+    .action-btn.resolved-btn { border-color: var(--color-border-success); color: var(--color-text-success); background: var(--color-background-success); cursor: default; }
+  </style>
+</head>
+<body>
+  <div class="shell">
+    <!-- Sidebar de navegación principal -->
+    <nav class="sidebar" title="Navegación principal">
+      <a class="nav-icon" href="student-dashboard.html" title="Inicio">⌂</a>
+      <div class="nav-sep"></div>
+      <a class="nav-icon" href="project-list.html" title="Proyectos / Editor">◈</a>
+      <a class="nav-icon" href="course-catalog.html" title="Aprendizaje">▦</a>
+      <div class="nav-sep"></div>
+      <a class="nav-icon active" href="teacher-panel.html" title="Panel profesor">⊞</a>
+      <div style="flex:1"></div>
+      <a class="nav-icon" href="#" title="Ajustes">⚙</a>
+    </nav>
+
+    <div class="main">
+      <!-- Topbar -->
+      <div class="topbar">
+        <h1 class="topbar-label">Bandeja de reportes</h1>
+        <span class="badge badge-warn">⚑ 3 abiertos</span>
+        <div class="topbar-right">
+          <a class="btn" href="teacher-panel.html">← Panel</a>
+          <div class="avatar">SC</div>
+        </div>
+      </div>
+
+      <div class="body-wrap">
+        <!-- Panel lateral de estadísticas y filtros -->
+        <div class="stats-panel">
+          <div class="stats-group">
+            <div class="stats-title">Estado</div>
+            <div class="stat-item active">
+              Todos <span class="stat-count">5</span>
+            </div>
+            <div class="stat-item">
+              Abiertos <span class="stat-count warn">3</span>
+            </div>
+            <div class="stat-item">
+              Resueltos <span class="stat-count ok">2</span>
+            </div>
+          </div>
+          <div class="stats-group" style="border-top:0.5px solid var(--color-border-tertiary);padding-top:12px">
+            <div class="stats-title">Tipo</div>
+            <div class="stat-item">Ejercicio <span class="stat-count">2</span></div>
+            <div class="stat-item">Lección <span class="stat-count">2</span></div>
+            <div class="stat-item">Otro <span class="stat-count">1</span></div>
+          </div>
+          <div class="stats-group" style="border-top:0.5px solid var(--color-border-tertiary);padding-top:12px">
+            <div class="stats-title">Curso</div>
+            <div class="stat-item">Fundamentos Python <span class="stat-count">4</span></div>
+            <div class="stat-item">Estructuras de datos <span class="stat-count">1</span></div>
+          </div>
+        </div>
+
+        <!-- Lista de reportes -->
+        <div class="content">
+          <div class="filter-bar">
+            <a class="filter-tab active" href="#">Todos</a>
+            <a class="filter-tab" href="#">Abiertos</a>
+            <a class="filter-tab" href="#">Resueltos</a>
+            <div class="filter-sep"></div>
+            <a class="filter-tab" href="#">Ejercicios</a>
+            <a class="filter-tab" href="#">Lecciones</a>
+            <select class="sort-select">
+              <option>Más recientes</option>
+              <option>Más antiguos</option>
+            </select>
+          </div>
+
+          <div class="reports-list">
+            <!-- Reporte 1: abierto (ejercicio) → acceso directo a corregir -->
+            <div class="report-card open">
+              <div class="report-header">
+                <span class="report-badge rb-open">Abierto</span>
+                <span class="report-context">Ejercicio · Fibonacci recursivo · Módulo 3</span>
+                <span class="report-time">hace 2h</span>
+              </div>
+              <div class="report-title">El enunciado del ejercicio tiene un error en el ejemplo</div>
+              <div class="report-desc">El ejemplo muestra fibonacci(5)=5 pero la tabla de resultados empieza en índice 0 no en 1, lo que genera confusión en la validación.</div>
+              <div class="report-footer">
+                <span class="report-author">Samuel C. · Estudiante</span>
+                <!-- Acceso directo a corregir el ejercicio -->
+                <a class="action-btn fix-exercise" href="exercise-editor.html">✎ Corregir ejercicio</a>
+              </div>
+            </div>
+
+            <!-- Reporte 2: abierto (lección) -->
+            <div class="report-card open">
+              <div class="report-header">
+                <span class="report-badge rb-open">Abierto</span>
+                <span class="report-context">Lección · Recursión en Python · Módulo 3</span>
+                <span class="report-time">ayer</span>
+              </div>
+              <div class="report-title">El video de recursión no carga en Safari</div>
+              <div class="report-desc">Al abrir la lección desde Safari el video muestra un error de codec. En Chrome sí funciona correctamente.</div>
+              <div class="report-footer">
+                <span class="report-author">Melissa R. · Estudiante</span>
+                <!-- Acceso directo a corregir la lección -->
+                <a class="action-btn fix-lesson" href="lesson-editor.html">✎ Corregir lección</a>
+              </div>
+            </div>
+
+            <!-- Reporte 3: abierto (lección) -->
+            <div class="report-card open">
+              <div class="report-header">
+                <span class="report-badge rb-open">Abierto</span>
+                <span class="report-context">Lección · Definir funciones · Módulo 3</span>
+                <span class="report-time">hace 3 días</span>
+              </div>
+              <div class="report-title">El código de ejemplo tiene un error de indentación</div>
+              <div class="report-desc">El bloque de código en la sección "Ejemplo práctico" tiene la indentación incorrecta en la línea 7.</div>
+              <div class="report-footer">
+                <span class="report-author">Gabriel R. · Estudiante</span>
+                <a class="action-btn fix-lesson" href="lesson-editor.html">✎ Corregir lección</a>
+              </div>
+            </div>
+
+            <!-- Reporte 4: resuelto -->
+            <div class="report-card resolved">
+              <div class="report-header">
+                <span class="report-badge rb-resolved">Resuelto</span>
+                <span class="report-context">Ejercicio · Hello recursion · Módulo 3</span>
+                <span class="report-time">hace 5 días</span>
+              </div>
+              <div class="report-title">El caso de prueba fibonacci(0) fallaba incorrectamente</div>
+              <div class="report-desc">El validador marcaba como incorrecto el output 0 para n=0, cuando debería ser correcto según la definición estándar.</div>
+              <div class="report-footer">
+                <span class="report-author">Ana M. · Estudiante</span>
+                <span class="action-btn resolved-btn">✓ Resuelto</span>
+              </div>
+            </div>
+
+            <!-- Reporte 5: resuelto -->
+            <div class="report-card resolved">
+              <div class="report-header">
+                <span class="report-badge rb-resolved">Resuelto</span>
+                <span class="report-context">Lección · Parámetros y retorno · Módulo 3</span>
+                <span class="report-time">hace 1 semana</span>
+              </div>
+              <div class="report-title">Typo en la explicación del retorno múltiple</div>
+              <div class="report-desc">Decía "returm" en lugar de "return" en el párrafo 3.</div>
+              <div class="report-footer">
+                <span class="report-author">Luis P. · Estudiante</span>
+                <span class="action-btn resolved-btn">✓ Resuelto</span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</body>
+</html>
