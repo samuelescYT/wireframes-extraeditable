@@ -1,0 +1,153 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Modal: Reportar error – Wireframe</title>
+  <style>
+    :root {
+      --font-sans: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+      --color-background-primary: #ffffff;
+      --color-background-secondary: #f6f8fa;
+      --color-background-tertiary: #eef0f3;
+      --color-background-info: #dbeafe;
+      --color-background-success: #dcfce7;
+      --color-background-warning: #fef3c7;
+      --color-background-danger: #fee2e2;
+      --color-text-primary: #1f2328;
+      --color-text-secondary: #656d76;
+      --color-text-tertiary: #9198a1;
+      --color-text-info: #1d4ed8;
+      --color-text-success: #15803d;
+      --color-text-warning: #b45309;
+      --color-text-danger: #dc2626;
+      --color-border-secondary: #b7bec8;
+      --color-border-tertiary: #d0d7de;
+      --color-border-danger: #fca5a5;
+      --color-border-success: #86efac;
+      --border-radius-md: 6px;
+      --border-radius-lg: 10px;
+    }
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    body { font-family: var(--font-sans); background: #f0f2f5; display: flex; align-items: center; justify-content: center; min-height: 100vh; }
+    /* Fondo de la pantalla detrás del modal (lesson-view como contexto) */
+    .shell { display: flex; width: 960px; height: 600px; border: 0.5px solid var(--color-border-tertiary); border-radius: var(--border-radius-lg); overflow: hidden; background: var(--color-background-tertiary); box-shadow: 0 4px 24px rgba(0,0,0,.08); position: relative; }
+    .sidebar { width: 52px; background: var(--color-background-primary); border-right: 0.5px solid var(--color-border-tertiary); display: flex; flex-direction: column; align-items: center; padding: 12px 0; gap: 6px; flex-shrink: 0; }
+    .nav-icon { width: 36px; height: 36px; border-radius: var(--border-radius-md); display: flex; align-items: center; justify-content: center; color: var(--color-text-secondary); font-size: 15px; text-decoration: none; }
+    .nav-icon.active { background: var(--color-background-info); color: var(--color-text-info); }
+    .nav-sep { width: 24px; height: 0.5px; background: var(--color-border-tertiary); margin: 6px 0; }
+    /* Contenido de fondo difuminado */
+    .bg-content { flex: 1; overflow: hidden; filter: blur(1.5px); opacity: .55; user-select: none; pointer-events: none; padding: 40px 24px; font-size: 13px; color: var(--color-text-secondary); }
+    /* Overlay oscuro */
+    .overlay { position: absolute; inset: 0; background: rgba(0,0,0,.35); display: flex; align-items: center; justify-content: center; z-index: 20; }
+    /* Modal */
+    .modal { background: var(--color-background-primary); border: 0.5px solid var(--color-border-tertiary); border-radius: var(--border-radius-lg); width: 460px; box-shadow: 0 8px 32px rgba(0,0,0,.18); overflow: hidden; }
+    .modal-header { padding: 16px 18px 12px; border-bottom: 0.5px solid var(--color-border-tertiary); display: flex; align-items: center; gap: 10px; }
+    .modal-title { font-size: 14px; font-weight: 600; color: var(--color-text-primary); flex: 1; display: block; }
+    .modal-close { font-size: 18px; color: var(--color-text-tertiary); text-decoration: none; line-height: 1; }
+    .modal-close:hover { color: var(--color-text-primary); }
+    .modal-body { padding: 16px 18px; display: flex; flex-direction: column; gap: 12px; }
+    /* Contexto auto-detectado (clic 1) */
+    .context-block { background: var(--color-background-secondary); border: 0.5px solid var(--color-border-tertiary); border-radius: var(--border-radius-md); padding: 10px 12px; }
+    .context-label { font-size: 10px; font-weight: 500; color: var(--color-text-tertiary); text-transform: uppercase; letter-spacing: .05em; margin-bottom: 6px; }
+    .context-item { font-size: 12px; color: var(--color-text-secondary); display: flex; gap: 6px; align-items: center; }
+    .context-item + .context-item { margin-top: 4px; }
+    .form-group { display: flex; flex-direction: column; gap: 5px; }
+    .form-label { font-size: 11px; font-weight: 500; color: var(--color-text-secondary); }
+    .form-select { font-size: 12px; padding: 6px 8px; border-radius: var(--border-radius-md); border: 0.5px solid var(--color-border-secondary); background: var(--color-background-secondary); color: var(--color-text-primary); font-family: var(--font-sans); }
+    .form-textarea { font-size: 12px; padding: 8px 10px; border-radius: var(--border-radius-md); border: 0.5px solid var(--color-border-secondary); background: var(--color-background-secondary); color: var(--color-text-primary); font-family: var(--font-sans); resize: vertical; min-height: 70px; line-height: 1.5; }
+    .form-textarea:focus, .form-select:focus { outline: none; border-color: #378ADD; }
+    .click-counter { font-size: 10px; color: var(--color-text-tertiary); text-align: right; }
+    /* Validación inline */
+    .inline-hint { font-size: 11px; color: var(--color-text-danger); display: none; }
+    .modal-footer { padding: 12px 18px; border-top: 0.5px solid var(--color-border-tertiary); display: flex; align-items: center; gap: 8px; }
+    .btn { font-size: 12px; padding: 6px 14px; border-radius: var(--border-radius-md); border: 0.5px solid var(--color-border-tertiary); background: var(--color-background-secondary); color: var(--color-text-secondary); cursor: pointer; font-weight: 500; text-decoration: none; display: inline-flex; align-items: center; gap: 4px; }
+    .btn:hover { border-color: var(--color-border-secondary); color: var(--color-text-primary); }
+    .btn-danger { background: var(--color-background-danger); color: var(--color-text-danger); border-color: var(--color-border-danger); }
+    .btn-danger:hover { opacity: .9; }
+    .click-flow-hint { font-size: 11px; color: var(--color-text-tertiary); margin-left: auto; }
+    /* Modal de confirmación */
+    .confirmation-modal { display: none; position: absolute; inset: 0; background: rgba(0,0,0,.5); z-index: 30; align-items: center; justify-content: center; }
+    .confirm-box { background: var(--color-background-primary); border-radius: var(--border-radius-lg); padding: 20px 24px; text-align: center; width: 300px; box-shadow: 0 8px 24px rgba(0,0,0,.2); }
+    .confirm-icon { font-size: 28px; margin-bottom: 10px; }
+    .confirm-title { font-size: 14px; font-weight: 600; color: var(--color-text-primary); margin-bottom: 6px; }
+    .confirm-sub { font-size: 12px; color: var(--color-text-secondary); margin-bottom: 14px; line-height: 1.5; }
+    .confirm-btns { display: flex; gap: 8px; justify-content: center; }
+  </style>
+</head>
+<body>
+  <div class="shell">
+    <!-- Sidebar de fondo (difuminado) -->
+    <nav class="sidebar">
+      <a class="nav-icon" href="student-dashboard.html">⌂</a>
+      <div class="nav-sep"></div>
+      <a class="nav-icon" href="project-list.html">◈</a>
+      <a class="nav-icon active" href="course-catalog.html">▦</a>
+      <div class="nav-sep"></div>
+      <a class="nav-icon" href="teacher-panel.html">⊞</a>
+      <div style="flex:1"></div>
+      <a class="nav-icon" href="#">⚙</a>
+    </nav>
+
+    <!-- Contenido de fondo (lesson-view difuminada) -->
+    <div class="bg-content">
+      <div style="font-size:18px;font-weight:600;margin-bottom:8px">Recursión en Python</div>
+      <div style="margin-bottom:12px;color:var(--color-text-tertiary)">⏱ 15 min · Lección 3 de 5 · En progreso</div>
+      <div style="background:#f6f8fa;border-radius:10px;height:100px;margin-bottom:12px;display:flex;align-items:center;justify-content:center;color:var(--color-text-tertiary)">▶ Video explicativo</div>
+      <p>La recursión es cuando una función se llama a sí misma para resolver un problema dividiéndolo en subproblemas más pequeños…</p>
+    </div>
+
+    <!-- Overlay del modal -->
+    <div class="overlay">
+      <!-- Modal: Reportar error (máx 4 clics: abrir → tipo → descripción → enviar) -->
+      <div class="modal">
+        <div class="modal-header">
+          <span style="font-size:16px">⚑</span>
+          <h1 class="modal-title">Reportar un error</h1>
+          <a class="modal-close" href="lesson-view.html">×</a>
+        </div>
+
+        <div class="modal-body">
+          <!-- Clic 1: contexto auto-detectado (lección y ejercicio) -->
+          <div class="context-block">
+            <div class="context-label">Contexto detectado automáticamente</div>
+            <div class="context-item">📘 <span><strong>Curso:</strong> Fundamentos Python</span></div>
+            <div class="context-item">📂 <span><strong>Módulo:</strong> Módulo 3 · Funciones</span></div>
+            <div class="context-item">📄 <span><strong>Lección:</strong> Recursión en Python</span></div>
+          </div>
+
+          <!-- Clic 2: tipo de error (dropdown de selección) -->
+          <div class="form-group">
+            <label class="form-label">Tipo de error</label>
+            <select class="form-select">
+              <option>Selecciona el tipo de error…</option>
+              <option>Error en el contenido (texto)</option>
+              <option>Video no carga o está roto</option>
+              <option>Error en el ejercicio o código</option>
+              <option>Ejercicio no valida correctamente</option>
+              <option>Otro</option>
+            </select>
+          </div>
+
+          <!-- Clic 3: descripción libre -->
+          <div class="form-group">
+            <label class="form-label">Descripción del error <span style="color:var(--color-text-tertiary)">(opcional)</span></label>
+            <textarea class="form-textarea" placeholder="Describe el problema con el mayor detalle posible…"></textarea>
+            <!-- Validación inline: no al final -->
+            <span class="inline-hint">La descripción no puede superar 500 caracteres.</span>
+          </div>
+
+          <div class="click-counter">Clic 3 de 4 para enviar el reporte</div>
+        </div>
+
+        <div class="modal-footer">
+          <a class="btn" href="lesson-view.html">Cancelar</a>
+          <!-- Clic 4: enviar -->
+          <a class="btn btn-danger" href="lesson-view.html">⚑ Enviar reporte</a>
+          <span class="click-flow-hint">≤ 4 clics desde cualquier vista</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</body>
+</html>

@@ -1,0 +1,199 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Vista de módulo – Wireframe</title>
+  <style>
+    :root {
+      --font-sans: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+      --color-background-primary: #ffffff;
+      --color-background-secondary: #f6f8fa;
+      --color-background-tertiary: #eef0f3;
+      --color-background-info: #dbeafe;
+      --color-background-success: #dcfce7;
+      --color-background-warning: #fef3c7;
+      --color-background-danger: #fee2e2;
+      --color-text-primary: #1f2328;
+      --color-text-secondary: #656d76;
+      --color-text-tertiary: #9198a1;
+      --color-text-info: #1d4ed8;
+      --color-text-success: #15803d;
+      --color-text-warning: #b45309;
+      --color-text-danger: #dc2626;
+      --color-border-secondary: #b7bec8;
+      --color-border-tertiary: #d0d7de;
+      --color-border-danger: #fca5a5;
+      --border-radius-md: 6px;
+      --border-radius-lg: 10px;
+    }
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    body { font-family: var(--font-sans); background: #f0f2f5; display: flex; align-items: center; justify-content: center; min-height: 100vh; }
+    .shell { display: flex; width: 960px; height: 600px; border: 0.5px solid var(--color-border-tertiary); border-radius: var(--border-radius-lg); overflow: hidden; background: var(--color-background-tertiary); box-shadow: 0 4px 24px rgba(0,0,0,.08); }
+    .sidebar { width: 52px; background: var(--color-background-primary); border-right: 0.5px solid var(--color-border-tertiary); display: flex; flex-direction: column; align-items: center; padding: 12px 0; gap: 6px; flex-shrink: 0; }
+    .nav-icon { width: 36px; height: 36px; border-radius: var(--border-radius-md); display: flex; align-items: center; justify-content: center; color: var(--color-text-secondary); font-size: 15px; text-decoration: none; transition: background .15s; }
+    .nav-icon:hover { background: var(--color-background-secondary); color: var(--color-text-primary); }
+    .nav-icon.active { background: var(--color-background-info); color: var(--color-text-info); }
+    .nav-sep { width: 24px; height: 0.5px; background: var(--color-border-tertiary); margin: 6px 0; }
+    .main { flex: 1; display: flex; flex-direction: column; overflow: hidden; }
+    .topbar { height: 44px; background: var(--color-background-primary); border-bottom: 0.5px solid var(--color-border-tertiary); display: flex; align-items: center; padding: 0 16px; gap: 10px; flex-shrink: 0; }
+    .breadcrumb { font-size: 12px; color: var(--color-text-tertiary); display: flex; align-items: center; gap: 4px; }
+    .breadcrumb a { color: var(--color-text-secondary); text-decoration: none; }
+    .breadcrumb a:hover { text-decoration: underline; }
+    .breadcrumb .current { color: var(--color-text-primary); font-weight: 500; }
+    .topbar-right { margin-left: auto; display: flex; align-items: center; gap: 8px; }
+    .report-btn { font-size: 11px; padding: 4px 10px; border-radius: var(--border-radius-md); background: var(--color-background-danger); color: var(--color-text-danger); border: 0.5px solid var(--color-border-danger); text-decoration: none; font-weight: 500; }
+    .avatar { width: 26px; height: 26px; border-radius: 50%; background: var(--color-background-info); display: flex; align-items: center; justify-content: center; font-size: 10px; font-weight: 500; color: var(--color-text-info); }
+    .body-wrap { flex: 1; display: flex; overflow: hidden; }
+    /* Left panel: course TOC */
+    .toc-panel { width: 200px; background: var(--color-background-primary); border-right: 0.5px solid var(--color-border-tertiary); display: flex; flex-direction: column; overflow: hidden; flex-shrink: 0; }
+    .toc-header { padding: 12px; border-bottom: 0.5px solid var(--color-border-tertiary); }
+    .toc-course-name { font-size: 12px; font-weight: 500; color: var(--color-text-primary); }
+    .toc-course-sub { font-size: 11px; color: var(--color-text-secondary); margin-top: 2px; }
+    .toc-list { flex: 1; overflow-y: auto; padding: 6px 0; }
+    .toc-module { padding: 6px 12px 3px; font-size: 10px; font-weight: 500; color: var(--color-text-tertiary); text-transform: uppercase; letter-spacing: .05em; cursor: pointer; display: flex; align-items: center; gap: 5px; }
+    .toc-lesson { padding: 5px 12px 5px 22px; font-size: 12px; color: var(--color-text-secondary); cursor: pointer; display: flex; align-items: center; gap: 7px; text-decoration: none; transition: background .1s; }
+    .toc-lesson:hover { background: var(--color-background-secondary); color: var(--color-text-primary); }
+    .toc-lesson.active { background: var(--color-background-secondary); color: var(--color-text-primary); font-weight: 500; }
+    .toc-lesson.done { color: var(--color-text-success); }
+    /* Main content area */
+    .content { flex: 1; overflow-y: auto; padding: 20px 22px; display: flex; flex-direction: column; gap: 14px; }
+    .module-banner { background: var(--color-background-primary); border: 0.5px solid var(--color-border-tertiary); border-radius: var(--border-radius-lg); padding: 16px; }
+    .module-title { font-size: 16px; font-weight: 600; color: var(--color-text-primary); margin-bottom: 4px; }
+    .module-desc { font-size: 12px; color: var(--color-text-secondary); line-height: 1.6; margin-bottom: 10px; }
+    .progress-bar { height: 4px; background: var(--color-background-secondary); border-radius: 2px; overflow: hidden; }
+    .progress-fill { height: 100%; border-radius: 2px; background: #1D9E75; }
+    .progress-text { font-size: 11px; color: var(--color-text-secondary); margin-top: 4px; }
+    .section-label { font-size: 11px; font-weight: 500; color: var(--color-text-secondary); text-transform: uppercase; letter-spacing: .06em; margin-bottom: 8px; }
+    /* Lecciones del módulo (acceso en 1 clic) */
+    .lesson-list { display: flex; flex-direction: column; gap: 8px; }
+    .lesson-row { background: var(--color-background-primary); border: 0.5px solid var(--color-border-tertiary); border-radius: var(--border-radius-lg); padding: 12px 14px; display: flex; align-items: center; gap: 12px; text-decoration: none; color: inherit; transition: border-color .15s; }
+    .lesson-row:hover { border-color: var(--color-border-secondary); }
+    .lesson-icon { width: 28px; height: 28px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 12px; font-weight: 600; flex-shrink: 0; }
+    .icon-done { background: var(--color-background-success); color: var(--color-text-success); }
+    .icon-active { background: var(--color-background-info); color: var(--color-text-info); }
+    .icon-pending { background: var(--color-background-secondary); color: var(--color-text-tertiary); }
+    .lesson-info { flex: 1; }
+    .lesson-name { font-size: 13px; font-weight: 500; color: var(--color-text-primary); }
+    .lesson-meta { font-size: 11px; color: var(--color-text-secondary); margin-top: 2px; display: flex; gap: 8px; }
+    .badge-state { font-size: 10px; padding: 2px 7px; border-radius: 99px; font-weight: 500; }
+    .badge-done { background: var(--color-background-success); color: var(--color-text-success); }
+    .badge-active { background: var(--color-background-info); color: var(--color-text-info); }
+    .badge-pending { background: var(--color-background-secondary); color: var(--color-text-tertiary); }
+  </style>
+</head>
+<body>
+  <div class="shell">
+    <!-- Sidebar de navegación principal -->
+    <nav class="sidebar" title="Navegación principal">
+      <a class="nav-icon" href="student-dashboard.html" title="Inicio">⌂</a>
+      <div class="nav-sep"></div>
+      <a class="nav-icon" href="project-list.html" title="Proyectos / Editor">◈</a>
+      <a class="nav-icon active" href="course-catalog.html" title="Aprendizaje">▦</a>
+      <div class="nav-sep"></div>
+      <a class="nav-icon" href="teacher-panel.html" title="Panel profesor">⊞</a>
+      <div style="flex:1"></div>
+      <a class="nav-icon" href="#" title="Ajustes">⚙</a>
+    </nav>
+
+    <div class="main">
+      <!-- Topbar con breadcrumb -->
+      <div class="topbar">
+        <div class="breadcrumb">
+          <a href="student-dashboard.html">Inicio</a> ›
+          <a href="course-catalog.html">Catálogo</a> ›
+          <a href="course-view.html">Fundamentos Python</a> ›
+          <span class="current">Módulo 3 · Funciones</span>
+        </div>
+        <div class="topbar-right">
+          <a class="report-btn" href="modal-report-error.html">⚑ Reportar error</a>
+          <div class="avatar">SC</div>
+        </div>
+      </div>
+
+      <div class="body-wrap">
+        <!-- Panel TOC: navegación del curso completo -->
+        <div class="toc-panel">
+          <div class="toc-header">
+            <div class="toc-course-name">Fundamentos Python</div>
+            <div class="toc-course-sub">Módulo 3 de 5</div>
+          </div>
+          <div class="toc-list">
+            <div class="toc-module">▾ Módulo 1 · Introducción</div>
+            <div class="toc-module">▾ Módulo 2 · Variables</div>
+            <div class="toc-module" style="color:var(--color-text-primary)">▾ Módulo 3 · Funciones</div>
+            <a class="toc-lesson done" href="lesson-view.html"><span>✓</span> Definir funciones</a>
+            <a class="toc-lesson done" href="lesson-view.html"><span>✓</span> Parámetros y retorno</a>
+            <a class="toc-lesson active" href="lesson-view.html"><span style="color:var(--color-text-info)">●</span> Recursión</a>
+            <a class="toc-lesson" href="lesson-view.html"><span>○</span> Funciones lambda</a>
+            <a class="toc-lesson" href="lesson-view.html"><span>○</span> Decoradores</a>
+            <div class="toc-module" style="opacity:.5">▶ Módulo 4 · Estructuras</div>
+            <div class="toc-module" style="opacity:.5">▶ Módulo 5 · POO</div>
+          </div>
+        </div>
+
+        <div class="content">
+          <!-- Banner del módulo actual -->
+          <div class="module-banner">
+            <h1 class="module-title">Módulo 3 · Funciones en Python</h1>
+            <div class="module-desc">En este módulo aprenderás a definir y utilizar funciones en Python: parámetros, retorno de valores, recursión, lambdas y decoradores.</div>
+            <div class="progress-bar"><div class="progress-fill" style="width:60%"></div></div>
+            <div class="progress-text">3 de 5 lecciones completadas · 60%</div>
+          </div>
+
+          <!-- Lista de lecciones del módulo (acceso en 1 clic) -->
+          <div>
+            <div class="section-label">Lecciones del módulo</div>
+            <div class="lesson-list">
+              <a class="lesson-row" href="lesson-view.html">
+                <div class="lesson-icon icon-done">✓</div>
+                <div class="lesson-info">
+                  <div class="lesson-name">Definir funciones</div>
+                  <div class="lesson-meta"><span>⏱ 10 min</span><span>Video + código</span></div>
+                </div>
+                <span class="badge-state badge-done">Completada</span>
+              </a>
+
+              <a class="lesson-row" href="lesson-view.html">
+                <div class="lesson-icon icon-done">✓</div>
+                <div class="lesson-info">
+                  <div class="lesson-name">Parámetros y retorno</div>
+                  <div class="lesson-meta"><span>⏱ 12 min</span><span>Video + código</span></div>
+                </div>
+                <span class="badge-state badge-done">Completada</span>
+              </a>
+
+              <a class="lesson-row" href="lesson-view.html">
+                <div class="lesson-icon icon-active">▶</div>
+                <div class="lesson-info">
+                  <div class="lesson-name">Recursión</div>
+                  <div class="lesson-meta"><span>⏱ 15 min</span><span>Video + ejercicio</span></div>
+                </div>
+                <span class="badge-state badge-active">En progreso</span>
+              </a>
+
+              <a class="lesson-row" href="lesson-view.html">
+                <div class="lesson-icon icon-pending">○</div>
+                <div class="lesson-info">
+                  <div class="lesson-name">Funciones lambda</div>
+                  <div class="lesson-meta"><span>⏱ 8 min</span><span>Solo código</span></div>
+                </div>
+                <span class="badge-state badge-pending">No iniciada</span>
+              </a>
+
+              <a class="lesson-row" href="lesson-view.html">
+                <div class="lesson-icon icon-pending">○</div>
+                <div class="lesson-info">
+                  <div class="lesson-name">Decoradores</div>
+                  <div class="lesson-meta"><span>⏱ 20 min</span><span>Video + ejercicio avanzado</span></div>
+                </div>
+                <span class="badge-state badge-pending">No iniciada</span>
+              </a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</body>
+</html>

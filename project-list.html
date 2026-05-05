@@ -1,0 +1,188 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Lista de proyectos – Wireframe</title>
+  <style>
+    :root {
+      --font-sans: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+      --font-mono: 'SF Mono', 'Fira Code', 'Consolas', monospace;
+      --color-background-primary: #ffffff;
+      --color-background-secondary: #f6f8fa;
+      --color-background-tertiary: #eef0f3;
+      --color-background-info: #dbeafe;
+      --color-background-success: #dcfce7;
+      --color-background-warning: #fef3c7;
+      --color-background-danger: #fee2e2;
+      --color-text-primary: #1f2328;
+      --color-text-secondary: #656d76;
+      --color-text-tertiary: #9198a1;
+      --color-text-info: #1d4ed8;
+      --color-text-success: #15803d;
+      --color-text-warning: #b45309;
+      --color-text-danger: #dc2626;
+      --color-border-secondary: #b7bec8;
+      --color-border-tertiary: #d0d7de;
+      --color-border-danger: #fca5a5;
+      --border-radius-md: 6px;
+      --border-radius-lg: 10px;
+    }
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    body { font-family: var(--font-sans); background: #f0f2f5; display: flex; align-items: center; justify-content: center; min-height: 100vh; }
+    .shell { display: flex; width: 960px; height: 600px; border: 0.5px solid var(--color-border-tertiary); border-radius: var(--border-radius-lg); overflow: hidden; background: var(--color-background-tertiary); box-shadow: 0 4px 24px rgba(0,0,0,.08); }
+    .sidebar { width: 52px; background: var(--color-background-primary); border-right: 0.5px solid var(--color-border-tertiary); display: flex; flex-direction: column; align-items: center; padding: 12px 0; gap: 6px; flex-shrink: 0; }
+    .nav-icon { width: 36px; height: 36px; border-radius: var(--border-radius-md); display: flex; align-items: center; justify-content: center; color: var(--color-text-secondary); font-size: 15px; text-decoration: none; transition: background .15s; }
+    .nav-icon:hover { background: var(--color-background-secondary); color: var(--color-text-primary); }
+    .nav-icon.active { background: var(--color-background-info); color: var(--color-text-info); }
+    .nav-sep { width: 24px; height: 0.5px; background: var(--color-border-tertiary); margin: 6px 0; }
+    .main { flex: 1; display: flex; flex-direction: column; overflow: hidden; }
+    .topbar { height: 44px; background: var(--color-background-primary); border-bottom: 0.5px solid var(--color-border-tertiary); display: flex; align-items: center; padding: 0 16px; gap: 10px; flex-shrink: 0; }
+    .breadcrumb { font-size: 12px; color: var(--color-text-tertiary); display: flex; align-items: center; gap: 4px; }
+    .breadcrumb a { color: var(--color-text-secondary); text-decoration: none; }
+    .breadcrumb a:hover { text-decoration: underline; }
+    .breadcrumb .current { color: var(--color-text-primary); font-weight: 500; }
+    .topbar-right { margin-left: auto; display: flex; align-items: center; gap: 8px; }
+    .report-btn { font-size: 11px; padding: 4px 10px; border-radius: var(--border-radius-md); background: var(--color-background-danger); color: var(--color-text-danger); border: 0.5px solid var(--color-border-danger); text-decoration: none; font-weight: 500; }
+    .btn { font-size: 12px; padding: 5px 12px; border-radius: var(--border-radius-md); border: 0.5px solid var(--color-border-tertiary); background: var(--color-background-secondary); color: var(--color-text-secondary); cursor: pointer; font-weight: 500; text-decoration: none; display: inline-flex; align-items: center; gap: 4px; }
+    .btn:hover { border-color: var(--color-border-secondary); color: var(--color-text-primary); }
+    .btn-primary { background: var(--color-background-info); color: var(--color-text-info); border-color: transparent; }
+    .btn-primary:hover { opacity: .9; }
+    .avatar { width: 26px; height: 26px; border-radius: 50%; background: var(--color-background-info); display: flex; align-items: center; justify-content: center; font-size: 10px; font-weight: 500; color: var(--color-text-info); }
+    .content { flex: 1; overflow-y: auto; padding: 16px; display: flex; flex-direction: column; gap: 12px; }
+    .section-label { font-size: 11px; font-weight: 500; color: var(--color-text-secondary); text-transform: uppercase; letter-spacing: .06em; margin-bottom: 8px; }
+    .filter-row { display: flex; align-items: center; gap: 8px; }
+    .filter-input { font-size: 12px; padding: 5px 10px; border-radius: var(--border-radius-md); border: 0.5px solid var(--color-border-tertiary); background: var(--color-background-primary); color: var(--color-text-primary); font-family: var(--font-sans); flex: 1; max-width: 200px; }
+    .filter-select { font-size: 12px; padding: 5px 8px; border-radius: var(--border-radius-md); border: 0.5px solid var(--color-border-tertiary); background: var(--color-background-primary); color: var(--color-text-secondary); font-family: var(--font-sans); }
+    .project-row { background: var(--color-background-primary); border: 0.5px solid var(--color-border-tertiary); border-radius: var(--border-radius-lg); padding: 12px 14px; display: flex; align-items: center; gap: 12px; text-decoration: none; color: inherit; transition: border-color .15s; }
+    .project-row:hover { border-color: var(--color-border-secondary); }
+    .project-icon { width: 34px; height: 34px; border-radius: var(--border-radius-md); background: var(--color-background-info); display: flex; align-items: center; justify-content: center; font-size: 14px; flex-shrink: 0; font-family: var(--font-mono); font-weight: 700; color: var(--color-text-info); }
+    .project-info { flex: 1; }
+    .project-name { font-size: 13px; font-weight: 500; color: var(--color-text-primary); }
+    .project-meta { font-size: 11px; color: var(--color-text-secondary); margin-top: 2px; display: flex; gap: 10px; }
+    .lang-badge { font-size: 10px; padding: 2px 7px; border-radius: 99px; background: var(--color-background-secondary); color: var(--color-text-secondary); border: 0.5px solid var(--color-border-tertiary); }
+    .lang-badge.py { background: #dbeafe; color: #1d4ed8; }
+    .lang-badge.js { background: #fef3c7; color: #b45309; }
+    .lang-badge.go { background: #dcfce7; color: #15803d; }
+    .project-actions { display: flex; gap: 6px; }
+    .action-btn { font-size: 11px; padding: 3px 10px; border-radius: var(--border-radius-md); border: 0.5px solid var(--color-border-tertiary); background: var(--color-background-secondary); color: var(--color-text-secondary); text-decoration: none; cursor: pointer; transition: border-color .15s; }
+    .action-btn:hover { border-color: var(--color-border-secondary); color: var(--color-text-primary); }
+    .new-project-card { background: var(--color-background-primary); border: 0.5px dashed var(--color-border-tertiary); border-radius: var(--border-radius-lg); padding: 20px; display: flex; flex-direction: column; align-items: center; gap: 8px; cursor: pointer; transition: border-color .15s; text-decoration: none; color: inherit; }
+    .new-project-card:hover { border-color: var(--color-border-secondary); }
+    .new-project-icon { font-size: 22px; color: var(--color-text-tertiary); }
+    .new-project-label { font-size: 13px; font-weight: 500; color: var(--color-text-secondary); }
+    .new-project-hint { font-size: 11px; color: var(--color-text-tertiary); }
+  </style>
+</head>
+<body>
+  <div class="shell">
+    <!-- Sidebar de navegación principal -->
+    <nav class="sidebar" title="Navegación principal">
+      <a class="nav-icon" href="student-dashboard.html" title="Inicio">⌂</a>
+      <div class="nav-sep"></div>
+      <a class="nav-icon active" href="project-list.html" title="Proyectos / Editor">◈</a>
+      <a class="nav-icon" href="course-catalog.html" title="Aprendizaje">▦</a>
+      <div class="nav-sep"></div>
+      <a class="nav-icon" href="teacher-panel.html" title="Panel profesor">⊞</a>
+      <div style="flex:1"></div>
+      <a class="nav-icon" href="#" title="Ajustes">⚙</a>
+    </nav>
+
+    <div class="main">
+      <!-- Topbar con breadcrumb -->
+      <div class="topbar">
+        <h1 style="font-size:13px;font-weight:500;color:var(--color-text-primary);display:contents">Lista de proyectos</h1>
+        <div class="breadcrumb">
+          <a href="student-dashboard.html">Inicio</a> ›
+          <span class="current">Mis proyectos</span>
+        </div>
+        <div class="topbar-right">
+          <a class="btn btn-primary" href="code-editor.html">+ Nuevo proyecto</a>
+          <a class="report-btn" href="modal-report-error.html">⚑ Reportar error</a>
+          <div class="avatar">SC</div>
+        </div>
+      </div>
+
+      <div class="content">
+        <!-- Filtros: búsqueda y dropdown de lenguaje -->
+        <div class="filter-row">
+          <input class="filter-input" type="search" placeholder="Buscar proyecto…" />
+          <!-- Dropdown de lenguaje -->
+          <select class="filter-select">
+            <option>Todos los lenguajes</option>
+            <option>Python</option>
+            <option>JavaScript</option>
+            <option>Go</option>
+          </select>
+          <select class="filter-select">
+            <option>Más recientes</option>
+            <option>Más antiguos</option>
+            <option>Alfabético</option>
+          </select>
+        </div>
+
+        <!-- Lista de proyectos activos -->
+        <div>
+          <div class="section-label">Proyectos activos (3)</div>
+          <div style="display:flex;flex-direction:column;gap:8px">
+            <a class="project-row" href="code-editor.html">
+              <div class="project-icon">py</div>
+              <div class="project-info">
+                <div class="project-name">proyecto-fibonacci</div>
+                <div class="project-meta">
+                  <span class="lang-badge py">Python</span>
+                  <span>Editado hace 2h</span>
+                  <span>3 colaboradores</span>
+                </div>
+              </div>
+              <div class="project-actions">
+                <a class="action-btn" href="code-editor.html">✎ Abrir editor</a>
+                <a class="action-btn" href="#">⊡ Compartir</a>
+              </div>
+            </a>
+
+            <a class="project-row" href="code-editor.html">
+              <div class="project-icon" style="background:var(--color-background-warning);color:var(--color-text-warning)">js</div>
+              <div class="project-info">
+                <div class="project-name">api-rest-demo</div>
+                <div class="project-meta">
+                  <span class="lang-badge js">JavaScript</span>
+                  <span>Editado ayer</span>
+                  <span>Solo tú</span>
+                </div>
+              </div>
+              <div class="project-actions">
+                <a class="action-btn" href="code-editor.html">✎ Abrir editor</a>
+                <a class="action-btn" href="#">⊡ Compartir</a>
+              </div>
+            </a>
+
+            <a class="project-row" href="code-editor.html">
+              <div class="project-icon" style="background:var(--color-background-success);color:var(--color-text-success)">go</div>
+              <div class="project-info">
+                <div class="project-name">hello-world-go</div>
+                <div class="project-meta">
+                  <span class="lang-badge go">Go</span>
+                  <span>Editado hace 3 días</span>
+                  <span>Solo tú</span>
+                </div>
+              </div>
+              <div class="project-actions">
+                <a class="action-btn" href="code-editor.html">✎ Abrir editor</a>
+                <a class="action-btn" href="#">⊡ Compartir</a>
+              </div>
+            </a>
+          </div>
+        </div>
+
+        <!-- Crear nuevo proyecto -->
+        <a class="new-project-card" href="code-editor.html">
+          <div class="new-project-icon">+</div>
+          <div class="new-project-label">Crear nuevo proyecto</div>
+          <div class="new-project-hint">Elige lenguaje y plantilla de inicio</div>
+        </a>
+      </div>
+    </div>
+  </div>
+</body>
+</html>
