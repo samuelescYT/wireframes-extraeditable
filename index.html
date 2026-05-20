@@ -1,0 +1,277 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Wireframes – Plataforma de aprendizaje</title>
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    :root {
+      --font: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+      --bg: #f0f2f5;
+      --surface: #ffffff;
+      --border: #d0d7de;
+      --text: #1f2328;
+      --text-sub: #656d76;
+      --text-muted: #9198a1;
+      --blue: #1d4ed8;
+      --blue-bg: #dbeafe;
+      --green: #15803d;
+      --green-bg: #dcfce7;
+      --amber: #b45309;
+      --amber-bg: #fef3c7;
+      --radius: 10px;
+    }
+    body {
+      font-family: var(--font);
+      background: var(--bg);
+      min-height: 100vh;
+      padding: 40px 24px 60px;
+    }
+    .page-header {
+      max-width: 860px; margin: 0 auto 36px;
+      display: flex; align-items: flex-start; gap: 16px;
+    }
+    .page-logo {
+      width: 48px; height: 48px; border-radius: 12px;
+      background: var(--blue-bg); display: flex;
+      align-items: center; justify-content: center;
+      font-size: 22px; flex-shrink: 0;
+    }
+    .page-title { font-size: 22px; font-weight: 700; color: var(--text); line-height: 1.2; }
+    .page-sub   { font-size: 13px; color: var(--text-sub); margin-top: 4px; line-height: 1.5; }
+
+    .section { max-width: 860px; margin: 0 auto 32px; }
+    .section-header {
+      display: flex; align-items: center; gap: 10px;
+      margin-bottom: 14px;
+    }
+    .section-dot {
+      width: 10px; height: 10px; border-radius: 50%;
+      flex-shrink: 0;
+    }
+    .section-title { font-size: 13px; font-weight: 600; color: var(--text); }
+    .section-desc  { font-size: 12px; color: var(--text-sub); margin-left: auto; }
+
+    .flow-hint {
+      display: flex; align-items: center; gap: 6px;
+      flex-wrap: wrap; margin-bottom: 12px;
+    }
+    .flow-arrow { font-size: 11px; color: var(--text-muted); }
+    .flow-tag {
+      font-size: 11px; padding: 2px 8px; border-radius: 99px;
+      background: var(--surface); border: 0.5px solid var(--border);
+      color: var(--text-sub); white-space: nowrap;
+    }
+
+    .grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(200px, 1fr)); gap: 12px; }
+    .card {
+      background: var(--surface);
+      border: 0.5px solid var(--border);
+      border-radius: var(--radius);
+      padding: 16px 14px;
+      text-decoration: none;
+      color: var(--text);
+      display: flex; flex-direction: column; gap: 6px;
+      transition: border-color .15s, box-shadow .15s;
+    }
+    .card:hover {
+      border-color: #b7bec8;
+      box-shadow: 0 2px 10px rgba(0,0,0,.07);
+    }
+    .card-icon { font-size: 18px; }
+    .card-label { font-size: 13px; font-weight: 500; line-height: 1.3; }
+    .card-desc  { font-size: 11px; color: var(--text-sub); line-height: 1.4; }
+    .card-badge {
+      display: inline-block; font-size: 10px; font-weight: 500;
+      padding: 2px 7px; border-radius: 99px; margin-top: 2px;
+      width: fit-content;
+    }
+
+    .card.blue  { border-left: 3px solid var(--blue);  }
+    .card.green { border-left: 3px solid var(--green); }
+    .card.amber { border-left: 3px solid var(--amber); }
+
+    .badge-blue  { background: var(--blue-bg);  color: var(--blue);  }
+    .badge-green { background: var(--green-bg); color: var(--green); }
+    .badge-amber { background: var(--amber-bg); color: var(--amber); }
+
+    .dot-blue  { background: var(--blue);  }
+    .dot-green { background: var(--green); }
+    .dot-amber { background: var(--amber); }
+
+    hr.divider { border: none; border-top: 0.5px solid var(--border); max-width: 860px; margin: 0 auto 32px; }
+  </style>
+</head>
+<body>
+
+<header class="page-header">
+  <div class="page-logo">◈</div>
+  <div>
+    <div class="page-title">Plataforma de aprendizaje de programación</div>
+    <div class="page-sub">
+      Wireframes de diseño de interfaz · Proyecto Extraditables · Pontificia Universidad Javeriana<br>
+      Usa el botón <strong>⊞</strong> flotante (esquina inferior derecha) para navegar entre pantallas.
+    </div>
+  </div>
+</header>
+
+<!-- ── STUDENT FLOW ── -->
+<section class="section">
+  <div class="section-header">
+    <span class="section-dot dot-blue"></span>
+    <span class="section-title">Flujo Estudiante</span>
+    <span class="section-desc">ASR-11 · ASR-12 · ASR-13 · ASR-14</span>
+  </div>
+  <div class="flow-hint">
+    <span class="flow-tag">Inicio</span>
+    <span class="flow-arrow">→</span>
+    <span class="flow-tag">Catálogo</span>
+    <span class="flow-arrow">→</span>
+    <span class="flow-tag">Curso</span>
+    <span class="flow-arrow">→</span>
+    <span class="flow-tag">Módulo</span>
+    <span class="flow-arrow">→</span>
+    <span class="flow-tag">Lección</span>
+    <span class="flow-arrow">→</span>
+    <span class="flow-tag">Editor</span>
+  </div>
+  <div class="grid">
+    <a class="card blue" href="student-dashboard.html">
+      <div class="card-icon">⌂</div>
+      <div class="card-label">Dashboard / Inicio</div>
+      <div class="card-desc">Acceso rápido, progreso y cursos activos del estudiante.</div>
+      <span class="card-badge badge-blue">Punto de entrada</span>
+    </a>
+    <a class="card blue" href="course-catalog.html">
+      <div class="card-icon">📚</div>
+      <div class="card-label">Catálogo de cursos</div>
+      <div class="card-desc">Explorar y buscar cursos disponibles en la plataforma.</div>
+    </a>
+    <a class="card blue" href="course-view.html">
+      <div class="card-icon">📖</div>
+      <div class="card-label">Vista de curso</div>
+      <div class="card-desc">Detalle del curso con módulos, progreso e inscripción.</div>
+    </a>
+    <a class="card blue" href="module-view.html">
+      <div class="card-icon">▦</div>
+      <div class="card-label">Vista de módulo</div>
+      <div class="card-desc">Listado de lecciones dentro de un módulo del curso.</div>
+    </a>
+    <a class="card blue" href="lesson-view.html">
+      <div class="card-icon">▤</div>
+      <div class="card-label">Vista de lección</div>
+      <div class="card-desc">Contenido educativo, video, texto y ejercicios de la lección.</div>
+    </a>
+    <a class="card blue" href="code-editor.html">
+      <div class="card-icon">✦</div>
+      <div class="card-label">Editor de código</div>
+      <div class="card-desc">Entorno de escritura y ejecución de código en línea.</div>
+      <span class="card-badge badge-blue">ASR-11 · ASR-12</span>
+    </a>
+    <a class="card blue" href="project-list.html">
+      <div class="card-icon">◈</div>
+      <div class="card-label">Mis proyectos</div>
+      <div class="card-desc">Lista de proyectos colaborativos y personales del estudiante.</div>
+    </a>
+    <a class="card blue" href="student-submission-view.html">
+      <div class="card-icon">⊡</div>
+      <div class="card-label">Vista de entrega</div>
+      <div class="card-desc">Historial de entregas, calificaciones y retroalimentación.</div>
+    </a>
+    <a class="card blue" href="modal-report-error.html">
+      <div class="card-icon">⚑</div>
+      <div class="card-label">Reportar error</div>
+      <div class="card-desc">Formulario para reportar errores en cualquier sección.</div>
+      <span class="card-badge badge-blue">ASR-17</span>
+    </a>
+  </div>
+</section>
+
+<hr class="divider">
+
+<!-- ── TEACHER / ADMIN FLOW ── -->
+<section class="section">
+  <div class="section-header">
+    <span class="section-dot dot-green"></span>
+    <span class="section-title">Flujo Profesor / Administrador</span>
+    <span class="section-desc">ASR-15 · ASR-16 · ASR-17</span>
+  </div>
+  <div class="flow-hint">
+    <span class="flow-tag">Panel</span>
+    <span class="flow-arrow">→</span>
+    <span class="flow-tag">Crear curso</span>
+    <span class="flow-arrow">→</span>
+    <span class="flow-tag">Editar lección</span>
+    <span class="flow-arrow">→</span>
+    <span class="flow-tag">Editar ejercicio</span>
+  </div>
+  <div class="grid">
+    <a class="card green" href="teacher-panel.html">
+      <div class="card-icon">⊞</div>
+      <div class="card-label">Panel del profesor</div>
+      <div class="card-desc">Vista general: cursos, lecciones y estadísticas de gestión.</div>
+      <span class="card-badge badge-green">Punto de entrada</span>
+    </a>
+    <a class="card green" href="wizard-create-course.html">
+      <div class="card-icon">＋</div>
+      <div class="card-label">Crear nuevo curso</div>
+      <div class="card-desc">Asistente paso a paso para crear ruta de aprendizaje.</div>
+      <span class="card-badge badge-green">ASR-15</span>
+    </a>
+    <a class="card green" href="lesson-editor.html">
+      <div class="card-icon">✏</div>
+      <div class="card-label">Editor de lección</div>
+      <div class="card-desc">Edición de contenido, materiales y recursos de una lección.</div>
+      <span class="card-badge badge-green">ASR-16</span>
+    </a>
+    <a class="card green" href="exercise-editor.html">
+      <div class="card-icon">⚙</div>
+      <div class="card-label">Editor de ejercicio</div>
+      <div class="card-desc">Creación y configuración de ejercicios con casos de prueba.</div>
+      <span class="card-badge badge-green">ASR-15 · ASR-16</span>
+    </a>
+    <a class="card green" href="reports-inbox.html">
+      <div class="card-icon">✉</div>
+      <div class="card-label">Bandeja de reportes</div>
+      <div class="card-desc">Revisión y gestión de errores reportados por estudiantes.</div>
+      <span class="card-badge badge-green">ASR-17</span>
+    </a>
+  </div>
+</section>
+
+<hr class="divider">
+
+<!-- ── EARLY MOCKUPS ── -->
+<section class="section">
+  <div class="section-header">
+    <span class="section-dot dot-amber"></span>
+    <span class="section-title">Mockups iniciales</span>
+    <span class="section-desc">Primera iteración de diseño visual</span>
+  </div>
+  <div class="grid">
+    <a class="card amber" href="extraditables_mockup_dashboard.html">
+      <div class="card-icon">⌂</div>
+      <div class="card-label">Mockup — Dashboard</div>
+      <div class="card-desc">Prototipo inicial del dashboard del estudiante.</div>
+    </a>
+    <a class="card amber" href="extraditables_mockup_aprendizaje.html">
+      <div class="card-icon">▦</div>
+      <div class="card-label">Mockup — Aprendizaje</div>
+      <div class="card-desc">Prototipo inicial de la vista de contenido educativo.</div>
+    </a>
+    <a class="card amber" href="extraditables_mockup_editor.html">
+      <div class="card-icon">✦</div>
+      <div class="card-label">Mockup — Editor</div>
+      <div class="card-desc">Prototipo inicial del editor de código en línea.</div>
+    </a>
+    <a class="card amber" href="extraditables_mockup_panel_profesor.html">
+      <div class="card-icon">⊞</div>
+      <div class="card-label">Mockup — Panel profesor</div>
+      <div class="card-desc">Prototipo inicial del panel de gestión del profesor.</div>
+    </a>
+  </div>
+</section>
+
+</body>
+</html>
