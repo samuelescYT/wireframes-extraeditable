@@ -1,3 +1,40 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Mockup — Panel profesor (inicial) – Wireframe</title>
+  <style>
+    :root {
+      --font-sans: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+      --font-mono: 'SF Mono', 'Fira Code', 'Consolas', monospace;
+      --color-background-primary: #ffffff;
+      --color-background-secondary: #f6f8fa;
+      --color-background-tertiary: #eef0f3;
+      --color-background-info: #dbeafe;
+      --color-background-success: #dcfce7;
+      --color-background-warning: #fef3c7;
+      --color-background-danger: #fee2e2;
+      --color-text-primary: #1f2328;
+      --color-text-secondary: #656d76;
+      --color-text-tertiary: #9198a1;
+      --color-text-info: #1d4ed8;
+      --color-text-success: #15803d;
+      --color-text-warning: #b45309;
+      --color-text-danger: #dc2626;
+      --color-border-secondary: #b7bec8;
+      --color-border-tertiary: #d0d7de;
+      --color-border-success: #86efac;
+      --color-border-warning: #fcd34d;
+      --color-border-danger: #fca5a5;
+      --border-radius-md: 6px;
+      --border-radius-lg: 10px;
+    }
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    body { font-family: var(--font-sans); background: #f0f2f5; display: flex; align-items: center; justify-content: center; min-height: 100vh; }
+  </style>
+</head>
+<body>
 
 <style>
 * { box-sizing: border-box; margin: 0; padding: 0; }
@@ -14,21 +51,17 @@
 .top-right { margin-left: auto; display: flex; gap: 8px; }
 .btn-primary { font-size: 12px; padding: 5px 12px; border-radius: var(--border-radius-md); background: var(--color-background-info); color: var(--color-text-info); border: none; cursor: pointer; font-weight: 500; }
 .body { flex: 1; display: flex; overflow: hidden; }
-/* Left sub-nav */
 .sub-nav { width: 160px; background: var(--color-background-primary); border-right: 0.5px solid var(--color-border-tertiary); padding: 10px 0; }
-.sub-nav-item { font-size: 12px; padding: 7px 14px; color: var(--color-text-secondary); cursor: pointer; display: flex; align-items: center; gap: 7px; border-radius: 0; transition: background .1s; }
+.sub-nav-item { font-size: 12px; padding: 7px 14px; color: var(--color-text-secondary); cursor: pointer; display: flex; align-items: center; gap: 7px; transition: background .1s; }
 .sub-nav-item:hover { background: var(--color-background-secondary); }
 .sub-nav-item.active { color: var(--color-text-primary); background: var(--color-background-secondary); font-weight: 500; }
 .sub-nav-sep { height: 0.5px; background: var(--color-border-tertiary); margin: 6px 12px; }
 .sub-nav-label { font-size: 10px; font-weight: 500; color: var(--color-text-tertiary); text-transform: uppercase; letter-spacing: .05em; padding: 10px 14px 4px; }
-/* Content */
 .content { flex: 1; display: flex; flex-direction: column; overflow: hidden; }
-/* Tabs inside content */
 .tabs { height: 36px; border-bottom: 0.5px solid var(--color-border-tertiary); display: flex; align-items: flex-end; padding: 0 16px; gap: 2px; background: var(--color-background-primary); }
 .tab { font-size: 12px; padding: 6px 12px; cursor: pointer; color: var(--color-text-secondary); border-bottom: 2px solid transparent; margin-bottom: -0.5px; }
 .tab.active { color: var(--color-text-primary); border-color: #378ADD; font-weight: 500; }
 .content-scroll { flex: 1; overflow-y: auto; padding: 16px; }
-/* Course list */
 .course-row { background: var(--color-background-primary); border: 0.5px solid var(--color-border-tertiary); border-radius: var(--border-radius-lg); padding: 12px 14px; margin-bottom: 8px; display: flex; align-items: center; gap: 12px; cursor: pointer; transition: border-color .15s; }
 .course-row:hover { border-color: var(--color-border-secondary); }
 .course-icon { width: 32px; height: 32px; border-radius: var(--border-radius-md); background: var(--color-background-info); display: flex; align-items: center; justify-content: center; font-size: 15px; flex-shrink: 0; }
@@ -38,8 +71,6 @@
 .course-actions { display: flex; gap: 6px; }
 .action-btn { font-size: 11px; padding: 3px 10px; border-radius: var(--border-radius-md); border: 0.5px solid var(--color-border-tertiary); background: var(--color-background-secondary); color: var(--color-text-secondary); cursor: pointer; transition: border-color .15s; }
 .action-btn:hover { border-color: var(--color-border-secondary); color: var(--color-text-primary); }
-.action-btn.danger { background: var(--color-background-danger); color: var(--color-text-danger); border-color: var(--color-border-danger); }
-/* Report items */
 .report-item { background: var(--color-background-primary); border: 0.5px solid var(--color-border-tertiary); border-radius: var(--border-radius-lg); padding: 12px 14px; margin-bottom: 8px; }
 .report-header { display: flex; align-items: center; gap: 8px; margin-bottom: 6px; }
 .report-badge { font-size: 10px; padding: 2px 8px; border-radius: 99px; font-weight: 500; }
@@ -51,14 +82,12 @@
 .report-footer { display: flex; align-items: center; gap: 8px; margin-top: 8px; }
 .report-author { font-size: 11px; color: var(--color-text-tertiary); }
 .resolve-btn { margin-left: auto; font-size: 11px; padding: 3px 10px; border-radius: var(--border-radius-md); border: 0.5px solid var(--color-border-success); color: var(--color-text-success); background: var(--color-background-success); cursor: pointer; }
-/* New course panel (right panel) */
 .right-panel { width: 240px; background: var(--color-background-primary); border-left: 0.5px solid var(--color-border-tertiary); display: flex; flex-direction: column; overflow: hidden; }
 .rp-header { padding: 12px; border-bottom: 0.5px solid var(--color-border-tertiary); font-size: 13px; font-weight: 500; color: var(--color-text-primary); }
 .rp-body { flex: 1; overflow-y: auto; padding: 12px; display: flex; flex-direction: column; gap: 10px; }
 .form-group { display: flex; flex-direction: column; gap: 4px; }
 .form-label { font-size: 11px; font-weight: 500; color: var(--color-text-secondary); }
 .form-input { font-size: 12px; padding: 6px 8px; border-radius: var(--border-radius-md); border: 0.5px solid var(--color-border-secondary); background: var(--color-background-secondary); color: var(--color-text-primary); font-family: var(--font-sans); }
-.form-input:focus { outline: none; border-color: #378ADD; }
 .click-count { font-size: 10px; color: var(--color-text-tertiary); margin-top: 2px; }
 .steps-indicator { display: flex; flex-direction: column; gap: 6px; }
 .step { display: flex; align-items: center; gap: 8px; font-size: 12px; }
@@ -74,7 +103,7 @@
 .rp-btn.primary { background: var(--color-background-info); color: var(--color-text-info); border-color: transparent; }
 .rp-btn.secondary { background: var(--color-background-secondary); color: var(--color-text-secondary); }
 </style>
-<div class="shell">
+<div class="shell" style="width:960px">
   <nav class="sidebar">
     <div class="nav-icon" title="Inicio">⌂</div>
     <div class="nav-sep"></div>
@@ -111,7 +140,6 @@
           <div class="tab">Reportes de error</div>
         </div>
         <div class="content-scroll">
-          <!-- Course rows -->
           <div class="course-row">
             <div class="course-icon">🐍</div>
             <div class="course-info">
@@ -142,7 +170,6 @@
               <button class="action-btn" onclick="alert('Publicar curso')">▶</button>
             </div>
           </div>
-          <!-- Report items preview -->
           <div style="font-size:11px;font-weight:500;color:var(--color-text-tertiary);text-transform:uppercase;letter-spacing:.05em;margin:16px 0 8px">Reportes recientes</div>
           <div class="report-item">
             <div class="report-header">
@@ -172,7 +199,6 @@
           </div>
         </div>
       </div>
-      <!-- Right panel: new course wizard (click counter) -->
       <div class="right-panel">
         <div class="rp-header">Nuevo curso <span style="font-size:11px;font-weight:400;color:var(--color-text-tertiary)">— flujo guiado</span></div>
         <div class="rp-body">
@@ -187,7 +213,7 @@
           <div class="form-group">
             <span class="form-label">Nombre de la lección</span>
             <input class="form-input" type="text" value="Recursión básica" />
-            <span class="click-hint">Clic 5 de 10 en el flujo completo</span>
+            <span class="click-count">Clic 5 de 10 en el flujo completo</span>
           </div>
           <div class="form-group">
             <span class="form-label">Duración estimada</span>
@@ -210,3 +236,7 @@
     </div>
   </div>
 </div>
+
+  <script src="nav-overlay.js"></script>
+</body>
+</html>

@@ -62,8 +62,8 @@
     .project-meta { font-size: 11px; color: var(--color-text-secondary); margin-top: 2px; display: flex; gap: 10px; }
     .lang-badge { font-size: 10px; padding: 2px 7px; border-radius: 99px; background: var(--color-background-secondary); color: var(--color-text-secondary); border: 0.5px solid var(--color-border-tertiary); }
     .lang-badge.py { background: #dbeafe; color: #1d4ed8; }
-    .lang-badge.js { background: #fef3c7; color: #b45309; }
-    .lang-badge.go { background: #dcfce7; color: #15803d; }
+    .lang-badge.ts  { background: #ede9fe; color: #5b21b6; }
+    .lang-badge.cpp { background: #fce7f3; color: #9d174d; }
     .project-actions { display: flex; gap: 6px; }
     .action-btn { font-size: 11px; padding: 3px 10px; border-radius: var(--border-radius-md); border: 0.5px solid var(--color-border-tertiary); background: var(--color-background-secondary); color: var(--color-text-secondary); text-decoration: none; cursor: pointer; transition: border-color .15s; }
     .action-btn:hover { border-color: var(--color-border-secondary); color: var(--color-text-primary); }
@@ -111,8 +111,8 @@
           <select class="filter-select">
             <option>Todos los lenguajes</option>
             <option>Python</option>
-            <option>JavaScript</option>
-            <option>Go</option>
+            <option>TypeScript</option>
+            <option>C++</option>
           </select>
           <select class="filter-select">
             <option>Más recientes</option>
@@ -142,11 +142,11 @@
             </a>
 
             <a class="project-row" href="code-editor.html">
-              <div class="project-icon" style="background:var(--color-background-warning);color:var(--color-text-warning)">js</div>
+              <div class="project-icon" style="background:#ede9fe;color:#5b21b6">ts</div>
               <div class="project-info">
-                <div class="project-name">api-rest-demo</div>
+                <div class="project-name">calculadora-tipos</div>
                 <div class="project-meta">
-                  <span class="lang-badge js">JavaScript</span>
+                  <span class="lang-badge ts">TypeScript</span>
                   <span>Editado ayer</span>
                   <span>Solo tú</span>
                 </div>
@@ -158,11 +158,11 @@
             </a>
 
             <a class="project-row" href="code-editor.html">
-              <div class="project-icon" style="background:var(--color-background-success);color:var(--color-text-success)">go</div>
+              <div class="project-icon" style="background:#fce7f3;color:#9d174d">c++</div>
               <div class="project-info">
-                <div class="project-name">hello-world-go</div>
+                <div class="project-name">ordenamiento-cpp</div>
                 <div class="project-meta">
-                  <span class="lang-badge go">Go</span>
+                  <span class="lang-badge cpp">C++</span>
                   <span>Editado hace 3 días</span>
                   <span>Solo tú</span>
                 </div>
@@ -184,5 +184,6 @@
       </div>
     </div>
   </div>
+  <script src="nav-overlay.js"></script>
 </body>
 </html>

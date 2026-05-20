@@ -67,8 +67,8 @@
     .course-meta { font-size: 11px; color: var(--color-text-tertiary); margin-top: 2px; }
     .chip { font-size: 10px; padding: 2px 7px; border-radius: 99px; background: var(--color-background-secondary); color: var(--color-text-secondary); border: 0.5px solid var(--color-border-tertiary); }
     .chip.py { background: #dbeafe; color: #1d4ed8; border-color: #93c5fd; }
-    .chip.js { background: #fef3c7; color: #b45309; border-color: #fcd34d; }
-    .chip.go { background: #dcfce7; color: #15803d; border-color: #86efac; }
+    .chip.ts  { background: #ede9fe; color: #5b21b6; border-color: #c4b5fd; }
+    .chip.cpp { background: #fce7f3; color: #9d174d; border-color: #f9a8d4; }
     .chip.beginner { background: #f0fdf4; color: #15803d; }
     .chip.intermediate { background: #eff6ff; color: #1d4ed8; }
     .course-chips { display: flex; flex-wrap: wrap; gap: 5px; margin-bottom: 10px; }
@@ -117,13 +117,10 @@
               <input type="checkbox" /> Python
             </label>
             <label class="filter-option">
-              <input type="checkbox" /> JavaScript
+              <input type="checkbox" /> TypeScript
             </label>
             <label class="filter-option">
-              <input type="checkbox" /> Go
-            </label>
-            <label class="filter-option">
-              <input type="checkbox" /> Rust
+              <input type="checkbox" /> C++
             </label>
           </div>
           <div class="filter-group" style="border-top:0.5px solid var(--color-border-tertiary);padding-top:12px">
@@ -203,28 +200,28 @@
             <div class="courses-grid">
               <a class="course-card" href="course-view.html">
                 <div class="course-card-header">
-                  <div class="course-icon" style="background:var(--color-background-warning)">🌐</div>
+                  <div class="course-icon" style="background:#ede9fe">🔷</div>
                   <div>
-                    <div class="course-title">JavaScript moderno</div>
+                    <div class="course-title">TypeScript desde cero</div>
                     <div class="course-meta">6 módulos · 30 lecciones</div>
                   </div>
                 </div>
                 <div class="course-chips">
-                  <span class="chip js">JavaScript</span>
+                  <span class="chip ts">TypeScript</span>
                   <span class="chip beginner">Principiante</span>
                 </div>
                 <a class="enroll-btn" href="course-view.html">+ Inscribirse</a>
               </a>
               <a class="course-card" href="course-view.html">
                 <div class="course-card-header">
-                  <div class="course-icon" style="background:#dcfce7">🦫</div>
+                  <div class="course-icon" style="background:#fce7f3">⚙</div>
                   <div>
-                    <div class="course-title">Go desde cero</div>
+                    <div class="course-title">C++ desde cero</div>
                     <div class="course-meta">4 módulos · 20 lecciones</div>
                   </div>
                 </div>
                 <div class="course-chips">
-                  <span class="chip go">Go</span>
+                  <span class="chip cpp">C++</span>
                   <span class="chip intermediate">Intermedio</span>
                 </div>
                 <a class="enroll-btn" href="course-view.html">+ Inscribirse</a>
@@ -235,5 +232,6 @@
       </div>
     </div>
   </div>
+  <script src="nav-overlay.js"></script>
 </body>
 </html>
